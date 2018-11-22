@@ -7,7 +7,7 @@ Parameters:
 
 Resources:
   CCloudNetwork:
-    Type: AWS:CloudFormation::Stack
+    Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/network/ccloud-network.yaml
       Parameters:
