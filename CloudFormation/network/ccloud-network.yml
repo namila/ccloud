@@ -1,0 +1,12 @@
+Parameters:
+  VPCCIDRBlock:
+    Description : CIDR Block for the VPC
+    Type: String
+    Default: 172.32.0.0/16
+
+Resources:
+  CCloudVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VPCCIDRBlock 
+      

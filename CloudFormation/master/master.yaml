@@ -1,1 +1,15 @@
-sample master6
+Parameters:
+  VPCCIDRBlock:
+    Description : CIDR Block for the VPC
+    Type: String
+    Default: 172.32.0.0/16
+
+
+Resources:
+  CCloudNetwork:
+    Type: AWS:CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/network/ccloud-network.yaml
+      Parameters:
+        VPCCIDRBlock: !Ref VPCCIDRBlock
+  

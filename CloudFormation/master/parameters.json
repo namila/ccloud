@@ -1,0 +1,6 @@
+[
+  {
+    "ParameterKey": "VPCCIDRBlock",
+    "ParameterValue": "172.33.0.0/16"
+  }
+]
