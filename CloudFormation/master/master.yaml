@@ -6,7 +6,7 @@ Parameters:
 
 
 Resources:
-# Creating the networks
+# Creating the networks for ccloud
   CCloudNetwork:
     Type: AWS::CloudFormation::Stack
     Properties:
