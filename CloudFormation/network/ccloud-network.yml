@@ -93,3 +93,36 @@ Resources:
     Properties:
       InternetGatewayId: !Ref CCloudInternetGateway
       VpcId: !Ref CCloudVPC
+
+  # Creating a public route table for CCloudVPC
+  CCloudPublicRouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref CCloudVPC
+      Tags:
+        - Key: Name
+          Value: ccloud-public-route-table
+  
+  # Creating a route to access internet via internet gateway
+  CCloudPublicInternetRoute:
+    Type: AWS::EC2::Route
+    # This should wait until creation of Internet gateway is done
+    DependsOn: InternetGatewayAttachement
+    Properties:
+      RouteTableId: !Ref CCloudPublicRouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref CCloudInternetGateway
+
+  # Attaching the public route table to public subnets
+  PublicSubnet1PublicRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref CCloudPublicRouteTable
+      SubnetId: !Ref PublicSubnet1
+
+  PublicSubnet2PublicRouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref CCloudPublicRouteTable
+      SubnetId: !Ref PublicSubnet2
+
