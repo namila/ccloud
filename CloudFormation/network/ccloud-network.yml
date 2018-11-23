@@ -78,3 +78,18 @@ Resources:
       Tags:
         - Key: Name
           Value: ccloud-private-sub-net-2
+  
+  # Internet Gateway
+  CCloudInternetGateway:
+    Type: AWS::EC2::InternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          value: ccloud-internet-gateway
+
+  # Attaching internet gateway to the VPC
+  InternetGatewayAttachement:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties:
+      InternetGatewayId: !Ref CCloudInternetGateway
+      VpcId: CCloudVPC
