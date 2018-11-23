@@ -31,7 +31,10 @@ Resources:
   CCloudVPC:
     Type: AWS::EC2::VPC
     Properties:
-      CidrBlock: !Ref VPCCIDRBlock 
+      CidrBlock: !Ref VPCCIDRBlock
+      Tags:
+        - Key: Name
+          Value: ccloud-vpc 
       
   # Public subnets
   PublicSubnet1:
@@ -40,10 +43,38 @@ Resources:
       VpcId: !Ref CCloudVPC
       AvailabilityZone: !Select [0,!GetAZs ""]
       CidrBlock: !Ref PublicSubnet1Block
+      Tags:
+        - Key: Name
+          Value: ccloud-public-sub-net-1
+      
 
   PublicSubnet2:
     Type: AWS::EC2::Subnet
     Properties:  
       VpcId: !Ref CCloudVPC
       AvailabilityZone: !Select [1, !GetAZs ""]
-      CidrBlock: !Ref PublicSubnet2Block  
+      CidrBlock: !Ref PublicSubnet2Block
+      Tags:
+        - Key: Name
+          Value: ccloud-public-sub-net-2
+
+  # Private subnets   
+  PrivateSubnet1:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref CCloudVPC
+      AvailabilityZone: !Select [0,!GetAZs ""]
+      CidrBlock: !Ref PrivateSubnet1Block
+      Tags:
+        - Key: Name
+          Value: ccloud-private-sub-net-1
+
+  PrivateSubnet2:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref CCloudVPC
+      AvailabilityZone: !Select [1,!GetAZs ""]
+      CidrBlock: !Ref PrivateSubnet2Block
+      Tags:
+        - Key: Name
+          Value: ccloud-private-sub-net-2
