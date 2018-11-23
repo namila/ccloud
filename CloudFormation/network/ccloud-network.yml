@@ -151,7 +151,7 @@ Resources:
   CCloudNatGateway1:
     Type: AWS::EC2::NatGateway
     Properties:
-      AllocationId: !GetAtt CCloudElasticIp1.AllcationId
+      AllocationId: !GetAtt CCloudElasticIp1.AllocationId
       SubnetId: !Ref PublicSubnet1
       Tags:
        - Key: Name
@@ -160,7 +160,7 @@ Resources:
   CCloudNatGateway2:
     Type: AWS::EC2::NatGateway
     Properties:
-      AllocationId: !GetAtt CCloudElasticIp2.AllcationId
+      AllocationId: !GetAtt CCloudElasticIp2.AllocationId
       SubnetId: !Ref PublicSubnet2
       Tags:
        - Key: Name
