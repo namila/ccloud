@@ -35,15 +35,15 @@ Resources:
       
   # Public subnets
   PublicSubnet1:
+    Type: AWS::EC2::Subnet
     Properties:
-      Type: AWS::EC2::Subnet
       VpcId: !Ref CCloudVPC
       AvailabilityZone: !Select [0,!GetAZs ""]
       CidrBlock: !Ref PublicSubnet1Block
 
   PublicSubnet2:
+    Type: AWS::EC2::Subnet
     Properties:  
-      Type: AWS::EC2::Subnet
       VpcId: !Ref CCloudVPC
       AvailabilityZone: !Select [1, !GetAZs ""]
       CidrBlock: !Ref PublicSubnet2Block  
