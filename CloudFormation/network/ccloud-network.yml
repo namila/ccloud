@@ -1,12 +1,47 @@
 Parameters:
+
   VPCCIDRBlock:
-    Description : CIDR Block for the VPC
+    Description: CIDR Block for the VPC
     Type: String
-    Default: 172.32.0.0/16
+    Default: 172.33.0.0/16
+
+  PublicSubnet1Block:
+    Description: CIDR Block for first public subnet
+    Type: String
+    Default: 172.33.1.0/24
+
+  PublicSubnet2Block:
+    Description: CIDR Block for second public subnet
+    Type: String
+    Default: 172.33.2.0/24
+
+  PrivateSubnet1Block:
+    Description: CIDR Block for first private subnet
+    Type: String
+    Default: 172.33.3.0/24
+
+  PrivateSubnet1Block:
+    Description: CIDR Block for second private subnet
+    Type: String
+    Default: 172.33.4.0/24
 
 Resources:
+  
+  # VPC
   CCloudVPC:
     Type: AWS::EC2::VPC
     Properties:
       CidrBlock: !Ref VPCCIDRBlock 
       
+  # Public subnets
+  PublicSubnet1:
+    Type: AWS::EC2::Subnet
+    VpcId: !Ref CCloudVPC
+    AvailabilityZone: !Select [0, !GETAZs !Ref AWS::Region]
+    CidrBlock: !Ref PublicSubnet1Block
+
+  PublicSubnet2:
+    Type: AWS::EC2::Subnet
+    VpcId: !Ref CCloudVPC
+    AvailabilityZone: !Select [1, !GETAZs !Ref AWS::Region]
+    CidrBlock: !Ref PublicSubnet2Block  

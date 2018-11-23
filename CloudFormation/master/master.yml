@@ -4,6 +4,26 @@ Parameters:
     Type: String
     Default: 172.32.0.0/16
 
+  PublicSubnet1Block:
+    Description: CIDR Block for first public subnet
+    Type: String
+    Default: 172.33.1.0/24
+
+  PublicSubnet2Block:
+    Description: CIDR Block for second public subnet
+    Type: String
+    Default: 172.33.2.0/24
+
+  PrivateSubnet1Block:
+    Description: CIDR Block for first private subnet
+    Type: String
+    Default: 172.33.3.0/24
+
+  PrivateSubnet1Block:
+    Description: CIDR Block for second private subnet
+    Type: String
+    Default: 172.33.4.0/24
+
 
 Resources:
 # Creating the networks for ccloud
@@ -13,4 +33,9 @@ Resources:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/network/ccloud-network.yml
       Parameters:
         VPCCIDRBlock: !Ref VPCCIDRBlock
+        PublicSubnet1Block: !Ref PublicSubnet1Block
+        PublicSubnet2Block: !Ref PublicSubnet2Block
+        PrivateSubnet1Block: !Ref PrivateSubnet1Block
+        PrivateSubnet2Block: !Ref PrivateSubnet2Block
+        
   
