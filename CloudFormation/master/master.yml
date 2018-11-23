@@ -19,7 +19,7 @@ Parameters:
     Type: String
     Default: 172.33.3.0/24
 
-  PrivateSubnet1Block:
+  PrivateSubnet2Block:
     Description: CIDR Block for second private subnet
     Type: String
     Default: 172.33.4.0/24
