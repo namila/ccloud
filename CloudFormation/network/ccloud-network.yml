@@ -133,9 +133,6 @@ Resources:
     DependsOn: InternetGatewayAttachement
     Properties:
       Domain: vpc
-      Tags:
-        - Key: Name
-          Value: ccloud-elastic-ip-1
 
   CCloudElasticIp2:
     Type: AWS::EC2::EIP
@@ -143,9 +140,6 @@ Resources:
     DependsOn: InternetGatewayAttachement
     Properties:
       Domain: vpc
-      Tags:
-        - Key: Name
-          Value: ccloud-elastic-ip-2
 
   # Creating NAT gateways in order to provide outbound only internet access to private subnets
   CCloudNatGateway1:
