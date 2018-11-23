@@ -85,7 +85,7 @@ Resources:
     Properties:
       Tags:
         - Key: Name
-          value: ccloud-internet-gateway
+          Value: ccloud-internet-gateway
 
   # Attaching internet gateway to the VPC
   InternetGatewayAttachement:
