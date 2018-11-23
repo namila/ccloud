@@ -92,4 +92,4 @@ Resources:
     Type: AWS::EC2::VPCGatewayAttachment
     Properties:
       InternetGatewayId: !Ref CCloudInternetGateway
-      VpcId: CCloudVPC
+      VpcId: !Ref CCloudVPC
