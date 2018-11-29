@@ -43,7 +43,7 @@ Resources:
   CCloudSecurityGroups:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ""
+      TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/security_groups/ccloud-security-groups.yml"
       Parameters:
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
         

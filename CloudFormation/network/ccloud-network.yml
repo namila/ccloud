@@ -210,6 +210,12 @@ Resources:
       SubnetId: !Ref PrivateSubnet2  
 
 
+Outputs:
+  VPC:
+  Description: ccloud VPC
+  Value: !Ref CCloudVPC
+
+
   
       
 

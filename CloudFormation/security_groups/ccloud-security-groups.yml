@@ -1,0 +1,63 @@
+Parameters:
+  VPC:
+    Type: AWS::EC2::VPC::Id
+    Description: Security group VPC
+
+
+Resources:
+
+# Security group for the load balancer
+# http and https traffice is enabled from anywhere
+  CCloudLoadBalancerSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Access to load balancer using http or https
+      SecurityGroupIngress:
+
+      # enable http
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+      # enable https
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: ccloud-load-balancer-security-group
+
+# Security group for VMs
+# Traffic is only enabled from the load balancer security group
+  CCloudVMSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: Allowing traffic from the load balancer to VMs
+      SecurityGroupIngress:
+        
+        # Access from load balancer
+        - SourceSecurityGroupId: !Ref CCloudLoadBalancerSecurityGroup
+          IpProtocol: tcp
+      
+        # SSH access for the vms
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name
+          Value: ccloud-vm-security-group
+
+
+
+
+
+
+
+
+
+
