@@ -41,7 +41,7 @@ Resources:
         
         # Access from load balancer
         - SourceSecurityGroupId: !Ref CCloudLoadBalancerSecurityGroup
-          IpProtocol: tcp
+          IpProtocol: -1
       
         # SSH access for the vms
         - IpProtocol: tcp
