@@ -26,7 +26,8 @@ Parameters:
 
 
 Resources:
-# Creating the networks for ccloud
+
+# Creating the network for ccloud
   CCloudNetwork:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -37,5 +38,13 @@ Resources:
         PublicSubnet2Block: !Ref PublicSubnet2Block
         PrivateSubnet1Block: !Ref PrivateSubnet1Block
         PrivateSubnet2Block: !Ref PrivateSubnet2Block
+
+# Security groups for ccloud
+  CCloudSecurityGroups:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ""
+      Parameters:
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
         
   
