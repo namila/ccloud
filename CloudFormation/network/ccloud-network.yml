@@ -177,6 +177,14 @@ Resources:
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref CCloudNatGateway1
 
+  # Attaching private route table 1 to private subnet 1
+  PrivateSubnet1RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref CCloudPrivateRouteTable1
+      SubnetId: !Ref PrivateSubnet1
+
+
   # Creating route table for private subnet 2
   CCloudPrivateRouteTable2:
     Type: AWS::EC2::RouteTable
@@ -192,7 +200,14 @@ Resources:
     Properties:
       RouteTableId: !Ref CCloudPrivateRouteTable2
       DestinationCidrBlock: 0.0.0.0/0
-      NatGatewayId: !Ref CCloudNatGateway2 
+      NatGatewayId: !Ref CCloudNatGateway2
+
+  # Attaching private route table 2 to private subnet 2
+  PrivateSubnet2RouteTableAssociation:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties:
+      RouteTableId: !Ref CCloudPrivateRouteTable2
+      SubnetId: !Ref PrivateSubnet2  
 
 
   
