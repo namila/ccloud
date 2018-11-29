@@ -212,8 +212,8 @@ Resources:
 
 Outputs:
   VPC:
-  Description: ccloud VPC
-  Value: !Ref CCloudVPC
+    Description: ccloud VPC
+    Value: !Ref CCloudVPC
 
 
   
