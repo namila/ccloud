@@ -186,7 +186,7 @@ Resources:
         - Key: Name
           Value: ccloud-private-route-table-2
 
-  # Route to connect private subnet 2 to NAT Gateway 2
+  # Route to connect private subnet 2 to NAT Gateway  2
   CCloudPrivateRouteToNATGateway2:
     Type: AWS::EC2::Route
     properties:
