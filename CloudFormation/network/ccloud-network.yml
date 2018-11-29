@@ -189,7 +189,7 @@ Resources:
   # Route to connect private subnet 2 to NAT Gateway  2
   CCloudPrivateRouteToNATGateway2:
     Type: AWS::EC2::Route
-    properties:
+    Properties:
       RouteTableId: !Ref CCloudPrivateRouteTable2
       DestinationCidrBlock: 0.0.0.0/0
       NatGatewayId: !Ref CCloudNatGateway2 
