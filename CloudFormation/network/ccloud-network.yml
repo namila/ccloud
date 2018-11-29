@@ -159,6 +159,43 @@ Resources:
       Tags:
        - Key: Name
          Value: ccloud-nat-gateway-2
+
+  # Creating route table for private subnet 1
+  CCloudPrivateRouteTable1:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref CCloudVPC
+      Tags:
+        - Key: Name
+          Value: ccloud-private-route-table-1
+  
+  # Route to connect private subnet 1 to NAT Gateway 1
+  CCloudPrivateRouteToNATGateway1:
+    Type: AWS::EC2::Route
+    Properties:
+      RouteTableId: !Ref CCloudPrivateRouteTable1
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref CCloudNatGateway1
+
+  # Creating route table for private subnet 2
+  CCloudPrivateRouteTable2:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      VpcId: !Ref CCloudVPC
+      Tags:
+        - Key: Name
+          Value: ccloud-private-route-table-2
+
+  # Route to connect private subnet 2 to NAT Gateway 2
+  CCloudPrivateRouteToNATGateway2:
+    Type: AWS::EC2::Route
+    properties:
+      RouteTableId: !Ref CCloudPrivateRouteTable2
+      DestinationCidrBlock: 0.0.0.0/0
+      NatGatewayId: !Ref CCloudNatGateway2 
+
+
+  
       
 
 
