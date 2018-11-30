@@ -1,4 +1,6 @@
 Parameters:
+
+  # For the network
   VPCCIDRBlock:
     Description : CIDR Block for the VPC
     Type: String
@@ -24,6 +26,32 @@ Parameters:
     Type: String
     Default: 172.33.4.0/24
 
+  # For VMs
+  VmType:
+    Description: Type of VM to be used
+    Type: String
+    Default: t2.micro
+  NumberOfVms:
+    Description: Number of VMs in the Cluster
+    Type: Number
+    Default: 2
+
+  VPC:
+    Description: VPC of the Cluster
+    Type: AWS::EC2::VPC::Id
+  
+  Subnets:
+    Description: Subnets for the Cluster
+    Type: List<AWS::EC2::Subnet:Id>
+  
+  SecurityGroup:
+    Description: Security group for the vms
+    Type: AWS::EC2::SecurityGroup::Id
+  
+  VmAMI:
+    Description: AMI to be used for VMs
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+
 
 Resources:
 
@@ -46,5 +74,20 @@ Resources:
       TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/security_groups/ccloud-security-groups.yml"
       Parameters:
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
+
+# CCloud VMs
+  CCloudCluster:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateUrl: ""
+      Parameters:
+        VmType: ''
+        NumberOfVms: ''
+        VPC: ''
+        Subnets: ''
+        SecurityGroup: ''
+        VmAMI: ''
+
+
         
   

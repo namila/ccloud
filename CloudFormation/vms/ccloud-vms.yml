@@ -1,0 +1,30 @@
+Parameters:
+  
+  VmType:
+    Description: Type of VM to be used
+    Type: String
+    Default: t2.micro
+
+  NumberOfVms:
+    Description: Number of VMs in the Cluster
+    Type: Number
+    Default: 2
+
+  VPC:
+    Description: VPC of the Cluster
+    Type: AWS::EC2::VPC::Id
+  
+  Subnets:
+    Description: Subnets for the Cluster
+    Type: List<AWS::EC2::Subnet:Id>
+  
+  SecurityGroup:
+    Description: Security group for the vms
+    Type: AWS::EC2::SecurityGroup::Id
+  
+  VmAMI:
+    Description: AMI to be used for VMs
+    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+
+
+
