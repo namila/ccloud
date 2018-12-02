@@ -164,18 +164,16 @@ Resources:
       Policies:
         - PolicyName: ccloud-ecs-policy
           PolicyDocument: |
-          {
-            "Statement": [{
-              "Effect": "Allow",
-              "Action":[
-                "ecs:*",
-                "ecr:*"
-              ],
-              "Resource": "*"
-            }]
-          }
-
-
+            {
+              "Statement": [{
+                "Effect": "Allow",
+                "Action":[
+                  "ecs:*",
+                  "ecr:*"
+                ],
+                "Resource": "*"
+              }]
+            }
 
   CCloudCloudWatchParameter:
     Type: AWS::SSM::Parameter
