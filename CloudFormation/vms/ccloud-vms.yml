@@ -49,7 +49,7 @@ Parameters:
 
 Resources:
 
-  # Cluster of VMs
+  #  Cluster of VMs
   CCloudCluster:
     Type: AWS::ECS::Cluster
   
