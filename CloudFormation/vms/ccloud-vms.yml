@@ -152,7 +152,7 @@ Resources:
         - !Ref CCloudVMRole
 
 
-  # IAM role for vms
+  # IAM role for  vms
   CCloudVMRole:
     Type: AWS::IAM::Role
     Properties:
@@ -163,16 +163,16 @@ Resources:
         - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
       Policies:
         - PolicyDocument: |
-        {
-          "Statement": [{
-            "Effect": "Allow",
-            "Action":[
-              "ecs:*",
-              "ecr:*"
-            ],
-            "Resource": "*"
-          }]
-        }
+          {
+            "Statement": [{
+              "Effect": "Allow",
+              "Action":[
+                "ecs:*",
+                "ecr:*"
+              ],
+              "Resource": "*"
+            }]
+          }
 
 
 
