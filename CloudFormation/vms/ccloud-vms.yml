@@ -44,8 +44,8 @@ Parameters:
   
   VmAMI:
     Description: AMI to be used for VMs
-    Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
-    Default: /aws/service/ecs/optimized-ami/amazon-linux/recommended/image_id
+    Type: String
+    Default: ami-0307f7ccf6ea35750
 
 Resources:
 
