@@ -24,12 +24,16 @@
     "ParameterValue": "t2.micro"
   },
   {
-    "ParameterKey": "NumberOfVms",
+    "ParameterKey": "MinimumNumberOfVms",
     "ParameterValue": "2"
   },
   {
-    "ParameterKey": "NumberOfVms",
+    "ParameterKey": "DesiredNumberOfVms",
     "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "MaximumNumberOfVms",
+    "ParameterValue": "4"
   },
   {
     "ParameterKey": "VmAMI",
