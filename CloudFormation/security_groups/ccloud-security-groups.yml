@@ -52,6 +52,18 @@ Resources:
         - Key: Name
           Value: ccloud-vm-security-group
 
+Outputs:
+  CCloudLoadBalancerSecurityGroup:
+    Description: Load balancer security group
+    Value: !Ref CCloudLoadBalancerSecurityGroup
+  
+  CCloudVMSecurityGroup:
+    Description: Vm Security group
+    Value: !Ref CCloudVMSecurityGroup
+
+  
+
+
 
 
 

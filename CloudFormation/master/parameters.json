@@ -18,6 +18,21 @@
   {
     "ParameterKey": "PrivateSubnet2Block",
     "ParameterValue": "172.33.4.0/24"
+  },
+  {
+    "ParameterKey": "VmType",
+    "ParameterValue": "t2.micro"
+  },
+  {
+    "ParameterKey": "NumberOfVms",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "NumberOfVms",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "VmAMI",
+    "ParameterValue": "/aws/service/ecs/optimized-ami/amazon-linux/recommended/image_id"
   }
-
 ]

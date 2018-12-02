@@ -5,10 +5,30 @@ Parameters:
     Type: String
     Default: t2.micro
 
-  NumberOfVms:
+  MinimumNumberOfVms:
+    Description: Minimum number of VMs in the Cluster
+    Type: Number
+    Default: 2
+
+  DesiredNumberOfVms:
     Description: Number of VMs in the Cluster
     Type: Number
     Default: 2
+
+  MaximumNumberOfVms:
+    Description: Maximum number of VMs in the Cluster
+    Type: Number
+    Default: 4
+  
+  AutoScalingCoolDown:
+    Description: Number of seconds to cool down after auto scaling activity
+    Type: Number
+    Default: 120
+  
+  HealthCheckGracePeriod:
+    Description: Number of seconds wait before starting heartbeat test
+    Type: Number
+    Default: 120
 
   VPC:
     Description: VPC of the Cluster
@@ -25,6 +45,176 @@ Parameters:
   VmAMI:
     Description: AMI to be used for VMs
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ecs/optimized-ami/amazon-linux/recommended/image_id
+
+Resources:
+
+  # Cluster of VMs
+  CCloudCluster:
+    Type: AWS::ECS::Cluster
+  
+  # Auto scalling group
+  CCloudAutoScallingGroup:
+    DependsOn: CCloudCluster
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      VPCZoneIdentifier: !Ref Subnets
+      LaunchConfigurationName: !Ref CCloudLaunchConfiguration
+      Cooldown: !Ref AutoScalingCoolDown
+      DesiredCapacity: !Ref DesiredNumberOfVms
+      HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
+      HealthCheckType: EC2
+      MaxSize: !Ref MaximumNumberOfVms
+      MinSize: !Ref MinimumNumberOfVms
+      Tags:
+        - Key: Name
+          Value: ccloud-autoscalling-group
+    CreationPolicy:
+      ResourceSignal:
+        Timeout: PT15M
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        MinInstancesInService: 1
+        MaxBatchSize: 1
+        PauseTime: PT15M
+        SuspendedProcesses:
+          - HealthCheck
+          - ReplaceUnhealthy
+          - AZRebalance
+          - AlarmNotification
+          - ScheduledActions
+        WaitOnResourceSignals: true
+
+
+
+
+  # Launch configuration
+  CCloudLaunchConfiguration:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      ImageId: !Ref VmAMI
+      InstanceType: !Ref VmType
+      SecurityGroups:
+        - !Ref SecurityGroup
+      IamInstanceProfile: CCloudInstanceProfile
+      UserData:
+        "Fn::Base64": !Sub |
+          #!/bin/bash
+          yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+          yum install -y https://s3.amazonaws.com/amazoncloudwatch-agent/amazon_linux/amd64/latest/amazon-cloudwatch-agent.rpm
+          yum install -y aws-cfn-bootstrap hibagent
+          /opt/aws/bin/cfn-init -v --region ${AWS::Region} --stack ${AWS::StackName} --resource CCloudLaunchConfiguration
+          /opt/aws/bin/cfn-signal -e $? --region ${AWS::Region} --stack ${AWS::StackName} --resource CCloudAutoScallingGroup
+          /usr/bin/enable-ec2-spot-hibernation
+    Metadata:
+      AWS::CloudFormation::Init:
+        config:
+          packages:
+            yum:
+              collectd: []
+          commands:
+            register_vm_to_the_cluster:
+              command: !Sub echo ECS_CLUSTER=${CCloudCluster} >> /etc/ecs/ecs.config
+            enable_cloud_watch_agent:
+              command: !Sub /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c ssm:${CCloudCloudWatchParameter} -s
+          
+          files:
+            /etc/cfn/cfn-hup.conf:
+              mode: 000400
+              owner: root
+              group: root
+              content: !Sub |
+                [main]
+                stack=${AWS::StackId}
+                region=${AWS::Region}
+            /etc/cfn/hooks.d/cfn-auto-reloader.conf:
+              content: !Sub |
+                [cfn-auto-reloader-hook]
+                triggers=post.update
+                path=Resources.CCloudLaunchConfiguration.Metadata.AWS::CloudFormation::Init
+                action=/opt/aws/bin/cfn-init -v --region ${AWS::Region} --stack ${AWS::StackName} --resource CCloudLaunchConfiguration
+         
+          services:
+            sysvinit:
+              cfn-hup:
+                enabled: true
+                ensureRunning: true
+                files:
+                  - /etc/cfn/cfn-hup.conf
+                  - /etc/cfn/hooks.d/cfn-auto-reloader.conf
+
+  
+  CCloudInstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: /
+      Roles:
+        - !Ref CCloudVMRole
+
+
+  # IAM role for vms
+  CCloudVMRole:
+    Type: AWS::IAM::Role
+    Properties:
+      Path: /
+      RoleName: CCloudVMRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
+        - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
+      Policies:
+        - PolicyDocument: |
+        {
+          "Statement": [{
+            "Effect": "Allow",
+            "Action":[
+              "ecs:*",
+              "ecr:*"
+            ],
+            "Resource": "*"
+          }]
+        }
+
+
+
+  CCloudCloudWatchParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Description: AWS Systems manager parameter for cloudwatch
+      Name: !Sub "AmazonCloudWatch-${CCloudCluster}"
+      Type: String
+      Value: !Sub |
+        {
+          "logs":{
+            "force_flush_interval": 5,
+            "logs_collected": {
+              "files": {
+                "collect_list": {
+                  {
+                    "file_path": "/var/log/docker",
+                    "log_group_name": "${CCloudCluster}-/var/log/docker",
+                    "log_stream_name": "{instance_id}"
+                  }
+                }
+              }
+            }
+          }
+        }
+
+Ouputs:
+  CCloudCluster:
+    Description: vm cluster
+    Value: !Ref CCloudCluster
+
+
+
+  
+
+      
+
+
+
+
+
 
 
 

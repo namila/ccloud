@@ -215,6 +215,16 @@ Outputs:
     Description: ccloud VPC
     Value: !Ref CCloudVPC
 
+  PublicSubnets:
+    Description: Public subnets
+    Value: !Join [",", [!Ref PublicSubnet1, !Ref PublicSubnet2]]
+
+  PrivateSubnets:
+    Description: Private subnets
+    Value: !Join [",", [!Ref PrivateSubnet1, !Ref PrivateSubnet2]]
+  
+    
+
 
   
       

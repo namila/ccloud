@@ -31,10 +31,30 @@ Parameters:
     Description: Type of VM to be used
     Type: String
     Default: t2.micro
-  NumberOfVms:
+  MinimumNumberOfVms:
+    Description: Minimum number of VMs in the Cluster
+    Type: Number
+    Default: 2
+
+  DesiredNumberOfVms:
     Description: Number of VMs in the Cluster
     Type: Number
     Default: 2
+
+  MaximumNumberOfVms:
+    Description: Maximum number of VMs in the Cluster
+    Type: Number
+    Default: 4
+  
+  AutoScalingCoolDown:
+    Description: Number of seconds to cool down after auto scaling activity
+    Type: Number
+    Default: 120
+  
+  HealthCheckGracePeriod:
+    Description: Number of seconds wait before starting heartbeat test
+    Type: Number
+    Default: 120
 
   VPC:
     Description: VPC of the Cluster
@@ -51,6 +71,7 @@ Parameters:
   VmAMI:
     Description: AMI to be used for VMs
     Type: AWS::SSM::Parameter::Value<AWS::EC2::Image::Id>
+    Default: /aws/service/ecs/optimized-ami/amazon-linux/recommended/image_id
 
 
 Resources:
@@ -79,14 +100,19 @@ Resources:
   CCloudCluster:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateUrl: ""
+      TemplateUrl: "https://s3.amazonaws.com/ccloud-template-bucket/vms/ccloud-vms.yml"
       Parameters:
-        VmType: ''
-        NumberOfVms: ''
-        VPC: ''
-        Subnets: ''
-        SecurityGroup: ''
-        VmAMI: ''
+        VmType: !Ref VmType
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Subnets: !GetAtt CCloudNetwork.Outputs.PublicSubnets
+        SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudVMSecurityGroup
+        VmAMI: !Ref VmAMI
+        MinimumNumberOfVms: !Ref MinimumNumberOfVms
+        DesiredNumberOfVms: !Ref DesiredNumberOfVms
+        MaximumNumberOfVms: !Ref MaximumNumberOfVms
+        AutoScalingCoolDown: !Ref AutoScalingCoolDown
+        HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
+
 
 
         
