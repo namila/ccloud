@@ -36,7 +36,7 @@ Parameters:
   
   Subnets:
     Description: Subnets for the Cluster
-    Type: List<AWS::EC2::Subnet:Id>
+    Type: List<AWS::EC2::Subnet::Id>
   
   SecurityGroup:
     Description: Security group for the vms
