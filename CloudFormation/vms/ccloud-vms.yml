@@ -162,7 +162,8 @@ Resources:
         - arn:aws:iam::aws:policy/service-role/AmazonEC2RoleforSSM
         - arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy
       Policies:
-        - PolicyDocument: |
+        - PolicyName: ccloud-ecs-policy
+          PolicyDocument: |
           {
             "Statement": [{
               "Effect": "Allow",
