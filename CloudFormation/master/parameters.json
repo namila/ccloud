@@ -37,6 +37,6 @@
   },
   {
     "ParameterKey": "VmAMI",
-    "ParameterValue": "/aws/service/ecs/optimized-ami/amazon-linux/recommended/image_id"
+    "ParameterValue": "ami-0307f7ccf6ea35750"
   }
 ]
