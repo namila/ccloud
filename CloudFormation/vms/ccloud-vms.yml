@@ -199,7 +199,7 @@ Resources:
           }
         }
 
-Ouputs:
+Outputs:
   CCloudCluster:
     Description: vm cluster
     Value: !Ref CCloudCluster
