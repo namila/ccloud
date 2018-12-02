@@ -31,7 +31,7 @@ Parameters:
     Description: Type of VM to be used
     Type: String
     Default: t2.micro
-    
+
   MinimumNumberOfVms:
     Description: Minimum number of VMs in the Cluster
     Type: Number
@@ -101,7 +101,7 @@ Resources:
   CCloudCluster:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateUrl: "https://s3.amazonaws.com/ccloud-template-bucket/vms/ccloud-vms.yml"
+      TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/vms/ccloud-vms.yml"
       Parameters:
         VmType: !Ref VmType
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
