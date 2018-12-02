@@ -157,7 +157,7 @@ Resources:
     Type: AWS::IAM::Role
     Properties:
       Path: /
-      RoleName: CCloudVMRole
+      
       AssumeRolePolicyDocument: |
         {
           "Statement": [{
