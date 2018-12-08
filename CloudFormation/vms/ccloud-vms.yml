@@ -62,8 +62,8 @@ Resources:
       LaunchConfigurationName: !Ref CCloudLaunchConfiguration
       Cooldown: !Ref AutoScalingCoolDown
       DesiredCapacity: !Ref DesiredNumberOfVms
-      HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
-      HealthCheckType: EC2
+      # HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
+      # HealthCheckType: EC2
       MaxSize: !Ref MaximumNumberOfVms
       MinSize: !Ref MinimumNumberOfVms
       Tags:
