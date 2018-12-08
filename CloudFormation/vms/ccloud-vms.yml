@@ -198,13 +198,13 @@ Resources:
             "force_flush_interval": 5,
             "logs_collected": {
               "files": {
-                "collect_list": {
+                "collect_list":[
                   {
                     "file_path": "/var/log/docker",
                     "log_group_name": "${CCloudCluster}-/var/log/docker",
                     "log_stream_name": "{instance_id}"
                   }
-                }
+                ]
               }
             }
           }
