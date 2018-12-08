@@ -60,10 +60,10 @@ Resources:
     Properties:
       VPCZoneIdentifier: !Ref Subnets
       LaunchConfigurationName: !Ref CCloudLaunchConfiguration
-      # Cooldown: !Ref AutoScalingCoolDown
+      Cooldown: !Ref AutoScalingCoolDown
       DesiredCapacity: !Ref DesiredNumberOfVms
-      # HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
-      # HealthCheckType: EC2
+      HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
+      HealthCheckType: EC2
       MaxSize: !Ref MaximumNumberOfVms
       MinSize: !Ref MinimumNumberOfVms
       Tags:
@@ -178,8 +178,17 @@ Resources:
               "Statement": [{
                 "Effect": "Allow",
                 "Action":[
-                  "ecs:*",
-                  "ecr:*"
+                  "ecs:CreateCluster",
+                  "ecs:DeregisterContainerInstance",
+                  "ecs:DiscoverPollEndpoint",
+                  "ecs:Poll",
+                  "ecs:RegisterContainerInstance",
+                  "ecs:StartTelemetrySession",
+                  "ecs:Submit*",
+                  "ecr:BatchCheckLayerAvailability",
+                  "ecr:BatchGetImage",
+                  "ecr:GetDownloadUrlForLayer",
+                  "ecr:GetAuthorizationToken"
                 ],
                 "Resource": "*"
               }]
