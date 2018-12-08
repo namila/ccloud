@@ -33,14 +33,17 @@ Parameters:
   VPC:
     Description: VPC of the Cluster
     Type: AWS::EC2::VPC::Id
+    Default: vpc-090ad34ae9364a32b 
   
   Subnets:
     Description: Subnets for the Cluster
     Type: List<AWS::EC2::Subnet::Id>
+    Default: subnet-0d8ab3e81fd37b2a1,subnet-01b81faa50de489a1 
   
   SecurityGroup:
     Description: Security group for the vms
     Type: AWS::EC2::SecurityGroup::Id
+    Default: sg-0143cf63f7e7287e4
   
   VmAMI:
     Description: AMI to be used for VMs
