@@ -97,6 +97,7 @@ Resources:
     Properties:
       ImageId: !Ref VmAMI
       InstanceType: !Ref VmType
+      KeyName: namila-ohio
       SecurityGroups:
         - !Ref SecurityGroup
       IamInstanceProfile: !Ref CCloudInstanceProfile
