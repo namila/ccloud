@@ -96,7 +96,7 @@ Resources:
       InstanceType: !Ref VmType
       SecurityGroups:
         - !Ref SecurityGroup
-      IamInstanceProfile: CCloudInstanceProfile
+      IamInstanceProfile: !Ref CCloudInstanceProfile
       UserData:
         "Fn::Base64": !Sub |
           #!/bin/bash
