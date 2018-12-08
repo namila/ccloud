@@ -2,7 +2,7 @@ Parameters:
   VPC:
     Type: AWS::EC2::VPC::Id
     Description: Security group VPC
-    default: vpc-090ad34ae9364a32b
+    Default: vpc-090ad34ae9364a32b
 
 
 Resources:
