@@ -50,6 +50,13 @@ Parameters:
     Type: String
     Default: ami-0307f7ccf6ea35750
 
+
+  KeyName:
+    Description: key pair to be used
+    Type: String
+    Default: namila-ohio
+
+
 Resources:
 
   #  Cluster of VMs
@@ -97,7 +104,7 @@ Resources:
     Properties:
       ImageId: !Ref VmAMI
       InstanceType: !Ref VmType
-      KeyName: namila-ohio
+      KeyName: !Ref KeyName
       SecurityGroups:
         - !Ref SecurityGroup
       IamInstanceProfile: !Ref CCloudInstanceProfile

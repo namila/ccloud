@@ -57,6 +57,11 @@ Parameters:
     Type: Number
     Default: 120
 
+  KeyName:
+    Description: key pair to be used
+    Type: String
+    Default: namila-ohio
+
   # VPC:
   #   Description: VPC of the Cluster
   #   Type: AWS::EC2::VPC::Id
@@ -113,6 +118,7 @@ Resources:
         MaximumNumberOfVms: !Ref MaximumNumberOfVms
         AutoScalingCoolDown: !Ref AutoScalingCoolDown
         HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
+        KeyName: !Ref KeyName
 
 
 

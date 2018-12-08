@@ -38,5 +38,9 @@
   {
     "ParameterKey": "VmAMI",
     "ParameterValue": "ami-0307f7ccf6ea35750"
+  },
+  {
+    "ParameterKey": "KeyName",
+    "ParameterValue": "namila-ohio"
   }
 ]
