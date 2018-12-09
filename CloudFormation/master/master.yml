@@ -26,6 +26,7 @@ Parameters:
     Type: String
     Default: 172.33.4.0/24
 
+  
   # For VMs
   VmType:
     Description: Type of VM to be used
@@ -62,22 +63,15 @@ Parameters:
     Type: String
     Default: namila-ohio
 
-  # VPC:
-  #   Description: VPC of the Cluster
-  #   Type: AWS::EC2::VPC::Id
-  
-  # Subnets:
-  #   Description: Subnets for the Cluster
-  #   Type: List<AWS::EC2::Subnet::Id>
-  
-  # SecurityGroup:
-  #   Description: Security group for the vms
-  #   Type: AWS::EC2::SecurityGroup::Id
   
   VmAMI:
     Description: AMI to be used for VMs
     Type: String
     Default: ami-0307f7ccf6ea35750
+
+
+  # For load balancer
+
 
 
 Resources:
@@ -94,6 +88,7 @@ Resources:
         PrivateSubnet1Block: !Ref PrivateSubnet1Block
         PrivateSubnet2Block: !Ref PrivateSubnet2Block
 
+
 # Security groups for ccloud
   CCloudSecurityGroups:
     Type: AWS::CloudFormation::Stack
@@ -101,6 +96,8 @@ Resources:
       TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/security_groups/ccloud-security-groups.yml"
       Parameters:
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
+
+
 
 # CCloud VMs
   CCloudCluster:
@@ -119,6 +116,20 @@ Resources:
         AutoScalingCoolDown: !Ref AutoScalingCoolDown
         HealthCheckGracePeriod: !Ref HealthCheckGracePeriod
         KeyName: !Ref KeyName
+
+# load balancer
+  CCloudLoadBalancer:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ""
+      Parameters:
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Subnets: !GetAtt CCloudNetwork.Outputs.PublicSubnets
+        SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
+
+    
+
+
 
 
 

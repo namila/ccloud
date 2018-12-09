@@ -1,0 +1,18 @@
+Parameters:
+  VPC:
+    Description: VPC of the Load Balancer
+    Type: AWS::EC2::VPC::Id
+    Default: ''
+
+  Subnets:
+    Description: Public subnets for the load Balancer
+    Type: List<AWS::EC2::Subnet::Id>
+    Default: ''
+
+  SecurityGroup:
+    Description: 'Security group for the load balancer'
+    Type: AWS::EC2::SecurityGroup::Id
+    Default: ''
+
+Resources:
+  
