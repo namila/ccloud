@@ -32,7 +32,7 @@ Resources:
       LoadBalancerArn: !Ref CCloudLoadBalancer
       Port: 80
       Protocol: HTTP
-      DefaultAction:
+      DefaultActions:
         - Type: forward
           TargetGroupArn: !Ref DefaultTargetGroup
 
