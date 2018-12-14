@@ -118,14 +118,14 @@ Resources:
         KeyName: !Ref KeyName
 
 # load balancer
-  # CCloudLoadBalancer:
-  #   Type: AWS::CloudFormation::Stack
-  #   Properties:
-  #     TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/load_balancer/ccloud-load-balancer.yml"
-  #     Parameters:
-  #       VPC: !GetAtt CCloudNetwork.Outputs.VPC
-  #       Subnets: !GetAtt CCloudNetwork.Outputs.PrivateSubnets
-  #       SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
+  CCloudLoadBalancer:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/load_balancer/ccloud-load-balancer.yml"
+      Parameters:
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Subnets: !GetAtt CCloudNetwork.Outputs.PrivateSubnets
+        SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
 
     
 
