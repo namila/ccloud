@@ -89,7 +89,14 @@ Resources:
     
 
   EmployeeServiceTaskDefinition:
-    Type:
+    Type: AWS::ECS::TaskDefinition
+    Properties:
+      Family: ccloud-employee-service
+      ContainerDefinitions:
+        - Name: ccloud-employee-app
+          Essential: true
+          Image: namila/ccloud-employee-service
+          Memory: 128
 
   
   CCloudEmployeeService:

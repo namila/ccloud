@@ -1,6 +1,6 @@
 FROM node:latest
 VOLUME EmployeeServiceSource
-COPY / EmployeeServiceSource/
+COPY Services/EmployeeService EmployeeServiceSource/
 WORKDIR EmployeeServiceSource
 RUN npm install
 EXPOSE 3000
