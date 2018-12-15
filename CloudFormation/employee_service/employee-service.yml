@@ -1,0 +1,104 @@
+Parameters:
+  VPC:
+    Description: VPC
+    Type: AWS::EC2::VPC::Id
+  
+  Cluster:
+    Description: ECS Cluster
+    Type: String
+  
+  Replication:
+    Description: replica count
+    Type: Number
+    Default: 2
+  
+  LoadBalancerListener:
+    Description: load balancer listener
+    Type: String
+  
+  ServicePath:
+    Description: Path for the load balancer to route
+    Type: String
+    Default: /employees
+
+  HealthCheckPath:
+    Description: Path for the load balancer to check health
+    Type: String
+    Default: /employees/health
+
+Resources:
+
+  LoadBalancerTargetGroup:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties:
+      VpcId: !Ref VPC
+      Port: 80
+      Protocol: HTTP
+      Matcher:
+        HttpCode: 200-299
+      HealthCheckIntervalSeconds: 10
+      HealthCheckPath: !Ref HealthCheckPath
+      HealthCheckProtocol: HTTP
+      HealthCheckTimeoutSeconds: 5
+      HealthyThreshholdCount: 2
+      UnhealthyThreshholdCount: 2
+
+
+
+  LoadBalancerListenerRule:
+    Type: AWS::ElasticLoadBalancingV2::ListenerRule
+    Properties: !Ref Listener
+    Priority: 1
+    Conditions:
+      - Field: path-pattern
+        Values:
+          - !Ref ServicePath
+    Actions:
+      - TargetGroupArn: !Ref LoadBalancerTargetGroup
+        Type: forward
+
+
+  LoadBalancerServiceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: load-balancer-service-role
+      Path: /
+      AssumeRolePolicyDocument: |
+        {
+          "Statement":[{
+            "Effect": "Allow",
+            "Principle": {"Service": ["ecs.amazonaws.com"]},
+            "Action": ["sts:AssumeRole"]
+          }]
+        }
+      Policies:
+        - PolicyName: ccloud-load-balancer-policy
+          PolicyDocument:
+            {
+              "Version": "2018-12-15",
+              "Statement":
+                [
+                  {
+                    "Effect": "Allow",
+                    "Action": "*",
+                    "Resource": "*"
+                  }
+                ]
+            }
+
+    
+
+  EmployeeServiceTaskDefinition:
+    Type:
+
+  
+  CCloudEmployeeService:
+    Type: AWS::ECS::Service
+    DependsOn: LoadBalancerListenerRule
+    Properties:
+      Cluster: !Ref Cluster
+      Role: !Ref LoadBalancerServiceRole
+      DesiredCount: !Ref Replication
+      TaskDefinition: !Ref EmployeeServiceTaskDefinition
+
+
