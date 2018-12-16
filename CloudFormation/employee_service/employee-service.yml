@@ -52,15 +52,16 @@ Resources:
 
   LoadBalancerListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
-    Properties: !Ref Listener
-    Priority: 1
-    Conditions:
-      - Field: path-pattern
-        Values:
-          - !Ref ServicePath
-    Actions:
-      - TargetGroupArn: !Ref LoadBalancerTargetGroup
-        Type: forward
+    Properties: 
+      ListenerArn: !Ref LoadBalancerListener
+      Priority: 1
+      Conditions:
+        - Field: path-pattern
+          Values:
+            - !Ref ServicePath
+      Actions:
+        - TargetGroupArn: !Ref LoadBalancerTargetGroup
+          Type: forward
 
 
   LoadBalancerServiceRole:
