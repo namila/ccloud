@@ -24,7 +24,7 @@ Parameters:
   HealthCheckPath:
     Description: Path for the load balancer to check health
     Type: String
-    Default: /employees/health
+    Default: /health
 
   ContainerPort:
     Description: Port exposed by the container
