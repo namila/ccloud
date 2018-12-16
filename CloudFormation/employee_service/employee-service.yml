@@ -73,7 +73,7 @@ Resources:
         {
           "Statement":[{
             "Effect": "Allow",
-            "Principle": {"Service": ["ecs.amazonaws.com"]},
+            "Principal": {"Service": ["ecs.amazonaws.com"]},
             "Action": ["sts:AssumeRole"]
           }]
         }
