@@ -140,16 +140,16 @@ Resources:
         SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
 
 # Employee Service
-  EmployeeService:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/employee_service/employee-service.yml
-      Parameters:
-        VPC: !GetAtt CCloudNetwork.Outputs.VPC
-        Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
-        DesiredCount: !Ref EmployeeServiceReplication
-        Listener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
-        ServicePath: /employees
+  # EmployeeService:
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/employee_service/employee-service.yml
+  #     Parameters:
+  #       VPC: !GetAtt CCloudNetwork.Outputs.VPC
+  #       Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
+  #       Replication: !Ref EmployeeServiceReplication
+  #       LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
+  #       ServicePath: /employees
 
 
 
