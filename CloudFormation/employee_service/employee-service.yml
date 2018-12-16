@@ -45,7 +45,7 @@ Resources:
       HealthCheckPath: !Ref HealthCheckPath
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
-      HealthyThreshholdCount: 2
+      HealthyThresholdCount: 2
       UnhealthyThresholdCount: 2
 
 
