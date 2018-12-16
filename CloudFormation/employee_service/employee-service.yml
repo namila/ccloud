@@ -26,6 +26,11 @@ Parameters:
     Type: String
     Default: /employees/health
 
+  ContainerPort:
+    Description: Port exposed by the container
+    Type: Number
+    Default: 3000
+
 Resources:
 
   LoadBalancerTargetGroup:
@@ -88,6 +93,12 @@ Resources:
 
     
 
+  EmployeeServiceLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Ref AWS::StackName
+      RetentionInDays: 365
+
   EmployeeServiceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
@@ -97,6 +108,14 @@ Resources:
           Essential: true
           Image: namila/ccloud-employee-service
           Memory: 128
+          PortMappings:
+            - ContainerPort: !Ref ContainerPort
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref EmployeeServiceLogGroup
+              awslogs-region: !Ref AWS::Region 
+
 
   
   CCloudEmployeeService:
@@ -107,5 +126,11 @@ Resources:
       Role: !Ref LoadBalancerServiceRole
       DesiredCount: !Ref Replication
       TaskDefinition: !Ref EmployeeServiceTaskDefinition
+      LoadBalancers:
+        - ContainerName: ccloud-employee-app
+          ContainerPort: !Ref ContainerPort
+          TargetGroupArn: !Ref LoadBalancerTargetGroup
+
+
 
 

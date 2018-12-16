@@ -42,5 +42,13 @@
   {
     "ParameterKey": "KeyName",
     "ParameterValue": "namila-ohio"
+  },
+  {
+    "ParameterKey": "EmployeeServiceReplication",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "EmployeeServicePath",
+    "ParameterValue": "/employees"
   }
 ]
