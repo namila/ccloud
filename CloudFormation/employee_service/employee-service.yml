@@ -71,10 +71,10 @@ Resources:
       Path: /
       AssumeRolePolicyDocument: |
         {
-          "Statement":[{
+          "Statement": [{
             "Effect": "Allow",
-            "Principal": {"Service": ["ecs.amazonaws.com"]},
-            "Action": ["sts:AssumeRole"]
+            "Principal": {"Service": [ "ecs.amazonaws.com" ]},
+            "Action": [ "sts:AssumeRole" ]
           }]
         }
       Policies:
