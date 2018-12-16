@@ -46,7 +46,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 5
       HealthyThreshholdCount: 2
-      UnhealthyThreshholdCount: 2
+      UnhealthyThresholdCount: 2
 
 
 
