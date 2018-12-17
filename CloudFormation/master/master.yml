@@ -136,7 +136,7 @@ Resources:
       TemplateURL: "https://s3.amazonaws.com/ccloud-template-bucket/load_balancer/ccloud-load-balancer.yml"
       Parameters:
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
-        Subnets: !GetAtt CCloudNetwork.Outputs.PrivateSubnets
+        Subnets: !GetAtt CCloudNetwork.Outputs.PublicSubnets
         SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
 
 # Employee Service
