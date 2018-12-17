@@ -84,13 +84,18 @@ Parameters:
     Description: Uri of Employee Service
     Type: String
     Default: /employees
+  
+  EmployeeServiceHealthCheckPath:
+    Description: service health check path
+    Type: String
+    Default: /health
 
 # For Products service
 
-  ProductServiceDockerImage:
+  ProductsServiceDockerImage:
     Description: Product Service Docker Image
     Type: String
-    Default: 
+    Default: namila/ccloud-products-service
   ProductsServiceReplication:
     Description: Desired count for products service
     Type: Number
@@ -100,6 +105,11 @@ Parameters:
     Description: Uri for Products Service
     Type: String
     Default: /products
+
+  ProductsServiceHealthCheckPath:
+    Description: service health check path
+    Type: String
+    Default: /health
   
 
 
@@ -162,22 +172,27 @@ Resources:
     Properties:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/employee_service/employee-service.yml
       Parameters:
+        DockerImage: !Ref EmployeeServiceDockerImage
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
         Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
         Replication: !Ref EmployeeServiceReplication
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
         ServicePath: !Ref EmployeeServicePath
+        HealthCheckPath: !Ref EmployeeServiceHealthCheckPath
+        
   
   ProductsService:
     Type: AWS::CloudFormation::Stack
     Properties:
       TemplateURL: ''
       Parameters:
+        DockerImage: !Ref ProductsServiceDockerImage
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
         Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
         Replication: !Ref ProductsServiceReplication
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener 
         ServicePath: !Ref ProductsServicePath
+        HealthCheckPath: !Ref ProductsServiceHealthCheckPath
 
 
 

@@ -1,38 +1,39 @@
 Parameters:
 
   DockerImage:
-    Description: Employee service docker image
+    Description: Docker Image for the products service
     Type: String
-    Default: namila/ccloud-employee-service
+    Default: namila/ccloud-products-service
+
   VPC:
-    Description: VPC
+    Description: VPC for the service
     Type: AWS::EC2::VPC::Id
-  
-  Cluster:
-    Description: ECS Cluster
+
+  Cluster: 
+    Description: Cluster for the service
     Type: String
   
   Replication:
-    Description: replica count
+    Description: Desired count of the service
     Type: Number
     Default: 2
-  
+
   LoadBalancerListener:
-    Description: load balancer listener
+    Description: Load balancer listener
     Type: String
   
   ServicePath:
-    Description: Path for the load balancer to route
+    Description: service uri
     Type: String
-    Default: /employees
+    Default: /products
 
   HealthCheckPath:
-    Description: Path for the load balancer to check health
+    Description: health check uri
     Type: String
     Default: /health
 
   ContainerPort:
-    Description: Port exposed by the container
+    Description: port exposed by the container
     Type: Number
     Default: 3000
 
@@ -53,8 +54,6 @@ Resources:
       HealthyThresholdCount: 2
       UnhealthyThresholdCount: 2
 
-
-
   LoadBalancerListenerRule:
     Type: AWS::ElasticLoadBalancingV2::ListenerRule
     Properties: 
@@ -67,7 +66,6 @@ Resources:
       Actions:
         - TargetGroupArn: !Ref LoadBalancerTargetGroup
           Type: forward
-
 
   LoadBalancerServiceRole:
     Type: AWS::IAM::Role
@@ -93,20 +91,18 @@ Resources:
               }]
             }
 
-    
-
-  EmployeeServiceLogGroup:
+  ProductsServiceLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Ref AWS::StackName
       RetentionInDays: 365
 
-  EmployeeServiceTaskDefinition:
+  ProductsServiceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
-      Family: ccloud-employee-service
+      Family: ccloud-products-service
       ContainerDefinitions:
-        - Name: ccloud-employee-app
+        - Name: ccloud-products-app
           Essential: true
           Image: !Ref DockerImage
           Memory: 128
@@ -115,24 +111,21 @@ Resources:
           LogConfiguration:
             LogDriver: awslogs
             Options:
-              awslogs-group: !Ref EmployeeServiceLogGroup
+              awslogs-group: !Ref ProductsServiceLogGroup
               awslogs-region: !Ref AWS::Region 
 
 
-  
-  CCloudEmployeeService:
+  CCloudProductsService:
     Type: AWS::ECS::Service
     DependsOn: LoadBalancerListenerRule
     Properties:
       Cluster: !Ref Cluster
       Role: !Ref LoadBalancerServiceRole
       DesiredCount: !Ref Replication
-      TaskDefinition: !Ref EmployeeServiceTaskDefinition
+      TaskDefinition: !Ref ProductsServiceTaskDefinition
       LoadBalancers:
-        - ContainerName: ccloud-employee-app
+        - ContainerName: ccloud-products-app
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref LoadBalancerTargetGroup
-
-
 
 
