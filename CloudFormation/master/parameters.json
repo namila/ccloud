@@ -44,11 +44,27 @@
     "ParameterValue": "namila-ohio"
   },
   {
+    "ParameterKey": "EmployeeServiceDockerImage",
+    "ParameterValue": "namila/ccloud-employee-service" 
+  },
+  {
     "ParameterKey": "EmployeeServiceReplication",
     "ParameterValue": "2"
   },
   {
     "ParameterKey": "EmployeeServicePath",
     "ParameterValue": "/employees"
+  },
+  {
+    "ParameterKey": "ProductsServiceDockerImage",
+    "ParameterValue": "namila/ccloud-products-service" 
+  },
+  {
+    "ParameterKey": "ProductsServiceReplication",
+    "ParameterValue": "2"
+  },
+  {
+    "ParameterKey": "ProductsServicePath",
+    "ParameterValue": "/products"
   }
 ]

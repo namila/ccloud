@@ -71,19 +71,36 @@ Parameters:
 
 
 # For Employee service
+
+  EmployeeServiceDockerImage:
+    Description: Employee Service Docker Image
+    Type: String
+    Default: namila/ccloud-employee-service
   EmployeeServiceReplication:
     Description: Desired count for employee service
     Type: Number
     Default: 2
-  
   EmployeeServicePath:
     Description: Uri of Employee Service
     Type: String
     Default: /employees
 
+# For Products service
 
-
-
+  ProductServiceDockerImage:
+    Description: Product Service Docker Image
+    Type: String
+    Default: 
+  ProductsServiceReplication:
+    Description: Desired count for products service
+    Type: Number
+    Default: 2
+  
+  ProductsServicePath:
+    Description: Uri for Products Service
+    Type: String
+    Default: /products
+  
 
 
 Resources:
@@ -149,7 +166,18 @@ Resources:
         Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
         Replication: !Ref EmployeeServiceReplication
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
-        ServicePath: /employees
+        ServicePath: !Ref EmployeeServicePath
+  
+  ProductsService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ''
+      Parameters:
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
+        Replication: !Ref ProductsServiceReplication
+        LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener 
+        ServicePath: !Ref ProductsServicePath
 
 
 
