@@ -115,7 +115,8 @@ Resources:
         - Name: ccloud-employee-app
           Essential: true
           Image: !Ref DockerImage
-          Links: ccloud-employee-db 
+          Links:
+            - ccloud-employee-db
           MemoryReservation: 1000
           PortMappings:
             - ContainerPort: !Ref ContainerPort
