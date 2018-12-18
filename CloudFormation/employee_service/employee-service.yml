@@ -101,7 +101,7 @@ Resources:
       LogGroupName: !Sub ${AWS::StackName}-app
       RetentionInDays: 365
 
-  EmployeeServiceAppDbGroup:
+  EmployeeServiceDbLogGroup:
     Type: AWS::Logs::LogGroup
     Properties:
       LogGroupName: !Sub ${AWS::StackName}-db
