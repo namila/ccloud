@@ -127,7 +127,7 @@ Resources:
               awslogs-region: !Ref AWS::Region
 
         - Name: ccloud-employee-db
-          Essential: true
+          Essential: false
           Image: mongo:4.0
           MemoryReservation: 1000
           LogConfiguration:
