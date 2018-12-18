@@ -1,0 +1,23 @@
+# Docker compose file for local testing
+version: '3'
+services:
+  ccloud-employee-service-app:
+    build:
+      context: .
+      dockerfile: ccloud-employee-service.Dockerfile
+    ports:
+      - "3000:3000"
+    networks: 
+      - ccloud-employee-service-network
+
+  ccloud-employee-service-db:
+    image: mongo:4.0
+    ports:
+      - "27017:27017"
+    networks: 
+      - ccloud-employee-service-network
+
+networks: 
+  ccloud-employee-service-network:
+    driver: bridge
+    
