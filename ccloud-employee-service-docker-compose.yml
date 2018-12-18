@@ -1,4 +1,4 @@
-# Docker compose file for local testing
+# Docker  compose file for local testing
 version: '3'
 services:
   ccloud-employee-app:
