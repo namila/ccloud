@@ -1,5 +1,3 @@
-Parameters:
-
 Resources:
   EmployeeTable:
     Type: AWS::DynamoDB::Table
