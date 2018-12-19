@@ -112,6 +112,17 @@ Resources:
     Properties:
       Family: ccloud-employee-service
       ContainerDefinitions:
+      
+        - Name: ccloud-employee-db
+          Essential: false
+          Image: mongo:4.0
+          MemoryReservation: 1000
+          LogConfiguration:
+            LogDriver: awslogs
+            Options:
+              awslogs-group: !Ref EmployeeServiceDbLogGroup
+              awslogs-region: !Ref AWS::Region
+
         - Name: ccloud-employee-app
           Essential: true
           Image: !Ref DockerImage
@@ -125,18 +136,6 @@ Resources:
             Options:
               awslogs-group: !Ref EmployeeServiceAppLogGroup
               awslogs-region: !Ref AWS::Region
-
-        - Name: ccloud-employee-db
-          Essential: false
-          Image: mongo:4.0
-          MemoryReservation: 1000
-          LogConfiguration:
-            LogDriver: awslogs
-            Options:
-              awslogs-group: !Ref EmployeeServiceDbLogGroup
-              awslogs-region: !Ref AWS::Region
-
-
   
   CCloudEmployeeService:
     Type: AWS::ECS::Service
