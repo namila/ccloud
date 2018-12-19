@@ -18,9 +18,9 @@ router.post('/', function(req, res, next){
   var employeeObject = {
     TableName: "EmployeeTable",
     Item:{
-      "EmployeeId": {S: "1"},
-      "EmployeeName": {S: "Namila"},
-      "EmployeeAddress": {S: "Kelaniya"}
+      "EmployeeId": {S: req.body.employeeId},
+      "EmployeeName": {S: req.body.employeeName},
+      "EmployeeAddress": {S: req.body.employeeAddress}
     }
   }
   
