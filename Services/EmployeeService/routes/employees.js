@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Employee = require('../schemas/employeeSchema');
+//var Employee = require('../schemas/employeeSchema');
+var dynamoDbService = require('../db/dynamodb');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -14,13 +15,23 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
-  var employee = new Employee({id: 1, name: 'Namila', address: 'Kelaniya'});
-  employee.save();
-
-  var allEmployees = Employee.find(function(error, data){
-    res.send(data);
-  });
+  var employeeObject = {
+    TableName: "EmployeeTable",
+    Item:{
+      "EmployeeId": {S: "1"},
+      "EmployeeName": {S: "Namila"},
+      "EmployeeAddress": {S: "Kelaniya"}
+    }
+  }
   
+  dynamoDbService.putItem(employeeObject, function(error, data){
+    if (error){
+      res.send({status: 'Failed'});
+    }
+    else{
+      res.send({status: 'Success'});
+    }
+  });
 });
 
 module.exports = router;
