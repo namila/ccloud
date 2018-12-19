@@ -1,0 +1,34 @@
+Parameters:
+
+Resources:
+  EmployeeTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        -
+          AttributeName: EmployeeId
+          AttributeType: S
+        
+        -
+          AttributeName: EmployeeName
+          AttributeType: S
+        
+        - 
+          AttributeName: EmployeeAddress
+          AttributeType: S     
+      KeySchema:
+        -
+          AttributeName: EmployeeId
+          KeyType: HASH
+      ProvisionedThroughput:
+        ReadCapacityUnits: 5
+        WriteCapacityUnits: 5
+      TableName: EmployeeTable
+      Tags:
+        - Key: ServiceName
+          Value: EmployeeService
+
+
+
+  
+

@@ -194,6 +194,11 @@ Resources:
         ServicePath: !Ref ProductsServicePath
         HealthCheckPath: !Ref ProductsServiceHealthCheckPath
 
+  DinamoDbService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: ""
+
 
 
     
