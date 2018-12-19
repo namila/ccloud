@@ -15,6 +15,11 @@ Resources:
       Tags:
         - Key: ServiceName
           Value: EmployeeService
+Outputs:
+  EmployeeTableARN:
+    Description: Link for Employee table
+    Value: !GetAtt EmployeeTable.Arn
+
 
 
 
