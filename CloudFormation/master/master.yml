@@ -197,7 +197,7 @@ Resources:
   DinamoDbService:
     Type: AWS::CloudFormation::Stack
     Properties:
-      TemplateURL: ""
+      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/dynamoDb_service/dynamoDb_service.yml
 
 
 
