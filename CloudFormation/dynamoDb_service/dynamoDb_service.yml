@@ -3,20 +3,16 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-        -
-          AttributeName: EmployeeId
+        - AttributeName: EmployeeId
           AttributeType: S
         
-        -
-          AttributeName: EmployeeName
+        - AttributeName: EmployeeName
           AttributeType: S
         
-        - 
-          AttributeName: EmployeeAddress
+        - AttributeName: EmployeeAddress
           AttributeType: S     
       KeySchema:
-        -
-          AttributeName: EmployeeId
+        - AttributeName: EmployeeId
           KeyType: HASH
       ProvisionedThroughput:
         ReadCapacityUnits: 5
