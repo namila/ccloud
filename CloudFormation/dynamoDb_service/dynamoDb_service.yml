@@ -4,13 +4,7 @@ Resources:
     Properties:
       AttributeDefinitions:
         - AttributeName: EmployeeId
-          AttributeType: S
-        
-        - AttributeName: EmployeeName
-          AttributeType: S
-        
-        - AttributeName: EmployeeAddress
-          AttributeType: S     
+          AttributeType: S    
       KeySchema:
         - AttributeName: EmployeeId
           KeyType: HASH
