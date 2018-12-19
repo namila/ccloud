@@ -112,11 +112,11 @@ Resources:
     Properties:
       Family: ccloud-employee-service
       ContainerDefinitions:
-      
+
         - Name: ccloud-employee-db
           Essential: false
           Image: mongo:4.0
-          MemoryReservation: 1000
+          MemoryReservation: 128
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -128,7 +128,7 @@ Resources:
           Image: !Ref DockerImage
           Links:
             - ccloud-employee-db
-          MemoryReservation: 1000
+          MemoryReservation: 128
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           LogConfiguration:
