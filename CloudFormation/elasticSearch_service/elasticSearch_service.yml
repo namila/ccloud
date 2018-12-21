@@ -22,10 +22,14 @@ Resources:
         Version: 2012-10-17
         Statement:
           - Effect: Allow
-            Principal:
-              AWS: "*"
             Action: "*"
             Resource: "*"
+          - Effect: Allow
+            Action: 
+              - sts:AssumeRole
+            Principle:
+              Service:
+                - es.amazonaws.com
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
