@@ -1,8 +1,46 @@
+Parameters:
+    Subnets:
+    Description: Subnets Which can access Elasticsearch
+    Type: List<AWS::EC2::Subnet::Id>
+
+    SecurityGroups:
+    Description: Security groups for elasticsearch service
+    Type: List<AWS::EC2::SecurityGroup::Id>
+
 Resources:
 
-  ElasticSearchInstance:
+  ElasticsearchService:
     Type: AWS::Elasticsearch::Domain
     Properties:
     AccessPolicies:
+      Version: 2012-10-17
+      Statement:
+        - Effect: Allow
+          Action: "*"
+          Resource: "*"
+    AdvancedOptions:
+      rest.action.multi.allow_explicit_index: 'true'
+    EBSOptions:
+      EBSEnabled: 'true'
+      VolumeSize: 10
+      VolumeType: standard
+    ElasticsearchClusterConfig:
+      InstanceCount: 1
+      InstanceType: t2.micro.elasticsearch
+    ElasticsearchVersion: 2.3
+    VPCOptions:
+      SubnetIds: !Ref Subnets
+      SecurityGroupIds: !Ref SecurityGroups
+
+Outputs:
+
+  ElasticsearchServiceEndPoint:
+    Value: !GetAtt ElasticsearchService.DomainEndpoint
+
+
     
+    
+
+
+
 

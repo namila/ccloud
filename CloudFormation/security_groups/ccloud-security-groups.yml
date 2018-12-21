@@ -53,6 +53,18 @@ Resources:
         - Key: Name
           Value: ccloud-vm-security-group
 
+  CCloudElasticSearchServiceSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      VpcId: !Ref VPC
+      GroupDescription: allowing traffic to the elasticsearch service
+      SecurityGroupIngress:
+        - IpProtocol: -1
+          FromPort: -1
+          ToPort: -1
+          CidrIp: 0.0.0.0/0
+
+
 Outputs:
   CCloudLoadBalancerSecurityGroup:
     Description: Load balancer security group
@@ -61,6 +73,12 @@ Outputs:
   CCloudVMSecurityGroup:
     Description: Vm Security group
     Value: !Ref CCloudVMSecurityGroup
+  
+  CCloudElasticSearchServiceSecurityGroup:
+    Description: Elasticsearch service security group
+    Value: !Ref CCloudElasticSearchServiceSecurityGroup
+
+  
 
   
 
