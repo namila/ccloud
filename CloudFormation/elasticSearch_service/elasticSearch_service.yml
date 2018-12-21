@@ -15,6 +15,7 @@ Resources:
       AWSServiceName: es.amazonaws.com
 
   ElasticsearchService:
+    DependsOn: ServiceLinkedRole
     Type: AWS::Elasticsearch::Domain
     Properties:
       AccessPolicies:
