@@ -1,0 +1,8 @@
+Resources:
+
+  ElasticSearchInstance:
+    Type: AWS::Elasticsearch::Domain
+    Properties:
+    AccessPolicies:
+    
+
