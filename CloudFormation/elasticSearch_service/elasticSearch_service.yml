@@ -12,7 +12,7 @@ Resources:
   ServiceLinkedRole:
     Type: AWS::IAM::ServiceLinkedRole
     Properties:
-      AWSServiceName: es.amazonaws.com
+      AWSServiceName: vpc.amazonaws.com
 
   ElasticsearchService:
     DependsOn: ServiceLinkedRole
@@ -24,12 +24,6 @@ Resources:
           - Effect: Allow
             Action: "*"
             Resource: "*"
-          - Effect: Allow
-            Action: 
-              - sts:AssumeRole
-            Principle:
-              Service:
-                - es.amazonaws.com
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
