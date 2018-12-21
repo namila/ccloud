@@ -1,13 +1,11 @@
 Parameters:
-    Subnets:
-      Description: Subnets Which can access Elasticsearch
-      Type: List<AWS::EC2::Subnet::Id>
-      Default: subnet-0d8ab3e81fd37b2a1,subnet-01b81faa50de489a1
+    VPCEndpointSubnet:
+      Description: Subnet to place VPC endpoint
+      Type: String
 
-    SecurityGroups:
-      Description: Security groups for elasticsearch service
-      Type: List<AWS::EC2::SecurityGroup::Id>
-      Default: sg-0143cf63f7e7287e4,sg-0143cf63f7e7287e1
+    SecurityGroup:
+      Description: Security group for elasticsearch service
+      Type: String
 
 Resources:
 
@@ -31,8 +29,10 @@ Resources:
         InstanceType: t2.micro.elasticsearch
       ElasticsearchVersion: 2.3
       VPCOptions:
-        SubnetIds: !Select ['0',!Ref Subnets]
-        SecurityGroupIds: !Ref SecurityGroups
+        SubnetIds:
+          - !Ref VPCEndpointSubnet
+        SecurityGroupIds:
+          - !Ref SecurityGroup
 
 Outputs:
 

@@ -206,8 +206,8 @@ Resources:
     Properties:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/elasticsearch_service/elasticsearch_service.yml
       Parameters:
-        Subnets: !GetAtt CCloudNetwork.Outputs.PrivateSubnets
-        SecurityGroups: !Join [",", [!GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup]]
+        VPCEndpointSubnet: !Select ['0',CCloudNetwork.Outputs.PrivateSubnets]
+        SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
 
 
 
