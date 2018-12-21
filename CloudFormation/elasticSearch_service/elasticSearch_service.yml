@@ -1,13 +1,13 @@
 Parameters:
     Subnets:
-    Description: Subnets Which can access Elasticsearch
-    Type: List<AWS::EC2::Subnet::Id>
-    Default: subnet-0d8ab3e81fd37b2a1,subnet-01b81faa50de489a1
+      Description: Subnets Which can access Elasticsearch
+      Type: List<AWS::EC2::Subnet::Id>
+      Default: subnet-0d8ab3e81fd37b2a1,subnet-01b81faa50de489a1
 
     SecurityGroups:
-    Description: Security groups for elasticsearch service
-    Type: List<AWS::EC2::SecurityGroup::Id>
-    Default: sg-0143cf63f7e7287e4, sg-0143cf63f7e7287e1
+      Description: Security groups for elasticsearch service
+      Type: List<AWS::EC2::SecurityGroup::Id>
+      Default: sg-0143cf63f7e7287e4,sg-0143cf63f7e7287e1
 
 Resources:
 
