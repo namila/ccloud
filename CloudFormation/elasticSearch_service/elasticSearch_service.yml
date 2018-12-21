@@ -9,6 +9,11 @@ Parameters:
 
 Resources:
 
+  ServiceLinkedRole:
+    Type: AWS::IAM::ServiceLinkedRole
+    Properties:
+      AWSServiceName: es.amazonaws.com
+
   ElasticsearchService:
     Type: AWS::Elasticsearch::Domain
     Properties:
