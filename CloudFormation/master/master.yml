@@ -200,7 +200,7 @@ Resources:
     Properties:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/dynamoDb_service/dynamoDb_service.yml
 
-  Elasticsearch indexing service
+  # Elasticsearch indexing service
   ElasticsearchService:
     Type: AWS::CloudFormation::Stack
     Properties:
