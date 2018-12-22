@@ -201,13 +201,13 @@ Resources:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/dynamoDb_service/dynamoDb_service.yml
 
   # Elasticsearch indexing service
-  ElasticsearchService:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/elasticsearch_service/elasticsearch_service.yml
-      Parameters:
-        VPCEndpointSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
-        SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
+  # ElasticsearchService:
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/elasticsearch_service/elasticsearch_service.yml
+  #     Parameters:
+  #       VPCEndpointSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
+  #       SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
 
 
 
