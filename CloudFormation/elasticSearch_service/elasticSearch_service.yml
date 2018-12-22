@@ -12,7 +12,7 @@ Resources:
   ServiceLinkedRole:
     Type: AWS::IAM::ServiceLinkedRole
     Properties:
-      AWSServiceName: es.amazonaws.com
+      AWSServiceName: ec2.amazonaws.com
 
   ElasticsearchService:
     DependsOn: ServiceLinkedRole
