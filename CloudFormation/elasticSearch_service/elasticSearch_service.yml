@@ -14,10 +14,8 @@ Resources:
       AccessPolicies:
         Statement:
           - Effect: "Allow"
-            Principle:
-              AWS: "*"
             Action: "es:*"
-            Resource: !GetAtt ElasticsearchService.DomainEndpoint
+            Resource: "*"
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
