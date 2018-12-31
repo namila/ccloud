@@ -22,8 +22,9 @@ Resources:
         Version: "2012-10-17"
         Statement:
           - Effect: "Allow"
-            Principle: "*"
-            Action: "*"
+            Principle:
+              AWS: "*"
+            Action: "es:*"
             Resource: "*"
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
