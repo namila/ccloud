@@ -11,14 +11,11 @@ Resources:
   ElasticsearchService:
     Type: AWS::Elasticsearch::Domain
     Properties:
-      # AccessPolicies:
-      #   Version: "2012-10-17"
-      #   Statement:
-      #     - Effect: "Allow"
-      #       Principle:
-      #         AWS: "*"
-      #       Action: "es:*"
-      #       Resource: "*"
+      AccessPolicies:
+        Statement:
+          - Effect: "Allow"
+            Action: "es:*"
+            Resource: "*"
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
