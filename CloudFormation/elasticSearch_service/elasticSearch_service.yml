@@ -11,11 +11,14 @@ Resources:
   ElasticsearchService:
     Type: AWS::Elasticsearch::Domain
     Properties:
+      DomainName: ccloud
       AccessPolicies:
         Statement:
-          - Effect: "Allow"
+          - Effect: Allow
+            Principle:
+              AWS: "*"
             Action: "es:*"
-            Resource: "*"
+            Resource: !Sub arn:aws:es:${AWS::Region}:${AWS::AccountId}:domain/ccloud/*
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
