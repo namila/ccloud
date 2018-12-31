@@ -17,7 +17,7 @@ Resources:
             Principle:
               AWS: "*"
             Action: "es:*"
-            Resource: "*"
+            Resource: !GetAtt ElasticsearchService.DomainEndpoint
       AdvancedOptions:
         rest.action.multi.allow_explicit_index: 'true'
       EBSOptions:
