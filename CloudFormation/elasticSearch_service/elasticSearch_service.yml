@@ -15,7 +15,7 @@ Resources:
       AccessPolicies:
         Statement:
           - Effect: Allow
-            Principle:
+            Principal:
               AWS: "*"
             Action: "es:*"
             Resource: !Sub arn:aws:es:${AWS::Region}:${AWS::AccountId}:domain/ccloud/*
