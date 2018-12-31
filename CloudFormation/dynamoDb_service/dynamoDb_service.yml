@@ -12,6 +12,9 @@ Resources:
         ReadCapacityUnits: 5
         WriteCapacityUnits: 5
       TableName: EmployeeTable
+      StreamSpecification:
+        StreamEnabled: true
+        StreamViewType: NEW_IMAGE
       Tags:
         - Key: ServiceName
           Value: EmployeeService
