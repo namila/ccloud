@@ -65,6 +65,13 @@ Resources:
           CidrIp: 0.0.0.0/0
 
 
+  ElasticsearchServiceRole:
+    Type: 'AWS::IAM::ServiceLinkedRole'
+    Properties:
+      AWSServiceName: es.amazonaws.com
+ 
+
+
 Outputs:
   CCloudLoadBalancerSecurityGroup:
     Description: Load balancer security group
