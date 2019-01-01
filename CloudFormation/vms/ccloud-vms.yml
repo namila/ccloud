@@ -88,7 +88,7 @@ Resources:
         MinInstancesInService: 1
         MaxBatchSize: 1
         PauseTime: PT15M
-        SuspendedProcesses:
+        SuspendProcesses:
           - HealthCheck
           - ReplaceUnhealthy
           - AZRebalance
