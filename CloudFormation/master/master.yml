@@ -179,6 +179,8 @@ Resources:
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
         ServicePath: !Ref EmployeeServicePath
         HealthCheckPath: !Ref EmployeeServiceHealthCheckPath
+        ContainerPort: 3000
+        ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
         
   
   ProductsService:

@@ -16,6 +16,11 @@ Parameters:
     Description: replica count
     Type: Number
     Default: 2
+
+  MaxReplication:
+    Description: Maximum replication
+    Type: Number
+    Default: 4
   
   LoadBalancerListener:
     Description: load balancer listener
@@ -35,6 +40,10 @@ Parameters:
     Description: Port exposed by the container
     Type: Number
     Default: 3000
+
+  ServiceAutoScalingRoleARN:
+    Description: Service autoscalling roll ARN
+
 
 Resources:
 
@@ -69,10 +78,10 @@ Resources:
           Type: forward
 
 
-  LoadBalancerServiceRole:
+  EmployeeServiceRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !Sub load-balancer-service-role-${AWS::StackName}
+      RoleName: !Sub employee-service-role-${AWS::StackName}
       Path: /
       AssumeRolePolicyDocument: |
         {
@@ -142,13 +151,64 @@ Resources:
     DependsOn: LoadBalancerListenerRule
     Properties:
       Cluster: !Ref Cluster
-      Role: !Ref LoadBalancerServiceRole
+      Role: !Ref EmployeeServiceRole
       DesiredCount: !Ref Replication
       TaskDefinition: !Ref EmployeeServiceTaskDefinition
       LoadBalancers:
         - ContainerName: ccloud-employee-app
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref LoadBalancerTargetGroup
+
+  CCloudEmployeeServiceScalableTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MaxCapacity: !Ref MaxReplication
+      MinCapacity: !Ref Replication
+      ResourceId: !Join
+        - /
+        - - service
+          - !Ref Cluster
+          - !GetAtt CCloudEmployeeService.Name
+      RoleARN: !Ref ServiceAutoScalingRoleARN
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+
+
+  CCloudEmployeeServiceScaleOutPolicy:
+    Type: AWS::ApplicationAutoScalling::ScalingPolicy
+    Properties:
+      PolicyName: CCloudEmployeeServiceScaleOutPolicy
+      PolicyType: StepScaling
+      ScalingTargetId: !Ref CCloudEmployeeServiceScalableTarget
+      StepScalingPolicyConfiguration:
+        AdjustmentType: ChangeInCapacity
+        Cooldown: 120
+        MetricAggregationType: Average
+        StepAdjustments:
+          - MetricIntervalLowerBound: 0
+            ScalingAdjustment: 1
+
+
+
+  CCloudEmployeeServiceMemoryScaleOutAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Memory Utilization more than 40 percentage
+      Namespace: AWS/ECS
+      MetricName: MemoryUtilization
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref Cluster
+        - Name: ServiceName
+          Value: !GetAtt CCloudEmployeeService.Name
+      Statistic: Maximum
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: 40
+      ComparisonOperator: GreaterThanThreshold
+      AlarmActions:
+        - !Ref CCloudEmployeeServiceScaleOutPolicy
+
 
 
 
