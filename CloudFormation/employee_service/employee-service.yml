@@ -111,34 +111,16 @@ Resources:
       LogGroupName: !Sub ${AWS::StackName}-app
       RetentionInDays: 365
 
-  EmployeeServiceDbLogGroup:
-    Type: AWS::Logs::LogGroup
-    Properties:
-      LogGroupName: !Sub ${AWS::StackName}-db
-      RetentionInDays: 365
 
   EmployeeServiceTaskDefinition:
     Type: AWS::ECS::TaskDefinition
     Properties:
       Family: ccloud-employee-service
       ContainerDefinitions:
-
-        - Name: ccloud-employee-db
-          Essential: false
-          Image: mongo:4.0
-          MemoryReservation: 256
-          LogConfiguration:
-            LogDriver: awslogs
-            Options:
-              awslogs-group: !Ref EmployeeServiceDbLogGroup
-              awslogs-region: !Ref AWS::Region
-
         - Name: ccloud-employee-app
           Essential: true
           Image: !Ref DockerImage
-          Links:
-            - ccloud-employee-db
-          MemoryReservation: 128
+          MemoryReservation: 256
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           LogConfiguration:
