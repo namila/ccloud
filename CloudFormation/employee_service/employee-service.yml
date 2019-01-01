@@ -176,7 +176,7 @@ Resources:
 
 
   CCloudEmployeeServiceScaleOutPolicy:
-    Type: AWS::ApplicationAutoScalling::ScalingPolicy
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
     Properties:
       PolicyName: CCloudEmployeeServiceScaleOutPolicy
       PolicyType: StepScaling
