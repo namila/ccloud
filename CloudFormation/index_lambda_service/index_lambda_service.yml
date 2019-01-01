@@ -1,0 +1,16 @@
+Parameters:
+  VPCEndpointSubnet:
+    Description: Subnet to place VPC endpoint
+    Type: String
+
+  SecurityGroup:
+    Description: Security group for elasticsearch service
+    Type: String
+
+
+Resources:
+  CCloudIndexer:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: ccloudIndexer
+      Runtime: nodejs

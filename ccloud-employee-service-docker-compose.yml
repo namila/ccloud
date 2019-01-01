@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ccloud-employee-service.Dockerfile
+    environment:
+      - AWS_PROFILE=ccloud-user
     ports:
       - "3000:3000"
     networks: 
