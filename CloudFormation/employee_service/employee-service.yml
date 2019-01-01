@@ -43,6 +43,7 @@ Parameters:
 
   ServiceAutoScalingRoleARN:
     Description: Service autoscalling roll ARN
+    Type: String
 
 
 Resources:
