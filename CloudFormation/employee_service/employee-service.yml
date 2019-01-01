@@ -116,7 +116,7 @@ Resources:
         - Name: ccloud-employee-db
           Essential: false
           Image: mongo:4.0
-          MemoryReservation: 512
+          MemoryReservation: 128
           LogConfiguration:
             LogDriver: awslogs
             Options:

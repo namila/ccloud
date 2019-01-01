@@ -175,7 +175,7 @@ Resources:
         DockerImage: !Ref EmployeeServiceDockerImage
         VPC: !GetAtt CCloudNetwork.Outputs.VPC
         Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
-        Replication: 5
+        Replication: !Ref EmployeeServiceReplication
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
         ServicePath: !Ref EmployeeServicePath
         HealthCheckPath: !Ref EmployeeServiceHealthCheckPath
