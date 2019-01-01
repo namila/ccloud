@@ -20,7 +20,7 @@ Parameters:
   MaxReplication:
     Description: Maximum replication
     Type: Number
-    Default: 4
+    Default: 10
   
   LoadBalancerListener:
     Description: load balancer listener
