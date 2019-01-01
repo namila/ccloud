@@ -33,7 +33,7 @@
   },
   {
     "ParameterKey": "MaximumNumberOfVms",
-    "ParameterValue": "4"
+    "ParameterValue": "6"
   },
   {
     "ParameterKey": "VmAMI",

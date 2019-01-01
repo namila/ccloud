@@ -126,7 +126,7 @@ Resources:
         - Name: ccloud-employee-db
           Essential: false
           Image: mongo:4.0
-          MemoryReservation: 128
+          MemoryReservation: 256
           LogConfiguration:
             LogDriver: awslogs
             Options:
@@ -190,6 +190,19 @@ Resources:
             ScalingAdjustment: 1
 
 
+  CCloudEmployeeServiceScaleInPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CCloudEmployeeServiceScaleInPolicy
+      PolicyType: StepScaling
+      ScalingTargetId: !Ref CCloudEmployeeServiceScalableTarget
+      StepScalingPolicyConfiguration:
+        AdjustmentType: ChangeInCapacity
+        Cooldown: 120
+        MetricAggregationType: Average
+        StepAdjustments:
+          - MetricIntervalLowerBound: 0
+            ScalingAdjustment: -1
 
   CCloudEmployeeServiceMemoryScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
@@ -209,6 +222,27 @@ Resources:
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudEmployeeServiceScaleOutPolicy
+
+  CCloudEmployeeServiceMemoryScaleInAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Memory Utilization less than 40 percentage
+      Namespace: AWS/ECS
+      MetricName: MemoryUtilization
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref Cluster
+        - Name: ServiceName
+          Value: !GetAtt CCloudEmployeeService.Name
+      Statistic: Maximum
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: 40
+      ComparisonOperator: LessThanThreshold
+      AlarmActions:
+        - !Ref CCloudEmployeeServiceScaleInPolicy
+
+
 
 
 
