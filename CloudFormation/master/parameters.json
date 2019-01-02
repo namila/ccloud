@@ -45,7 +45,7 @@
   },
   {
     "ParameterKey": "EmployeeServiceDockerImage",
-    "ParameterValue": "namila/ccloud-employee-service" 
+    "ParameterValue": "namila/ccloud-employee-service:latest" 
   },
   {
     "ParameterKey": "EmployeeServiceReplication",
@@ -61,7 +61,7 @@
   },
   {
     "ParameterKey": "ProductsServiceDockerImage",
-    "ParameterValue": "namila/ccloud-products-service" 
+    "ParameterValue": "namila/ccloud-products-service:latest" 
   },
   {
     "ParameterKey": "ProductsServiceReplication",

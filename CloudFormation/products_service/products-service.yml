@@ -3,7 +3,7 @@ Parameters:
   DockerImage:
     Description: Docker Image for the products service
     Type: String
-    Default: namila/ccloud-products-service
+    Default: namila/ccloud-products-service:latest
 
   VPC:
     Description: VPC for the service

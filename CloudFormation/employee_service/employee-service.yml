@@ -3,7 +3,7 @@ Parameters:
   DockerImage:
     Description: Employee service docker image
     Type: String
-    Default: namila/ccloud-employee-service
+    Default: namila/ccloud-employee-service:latest
   VPC:
     Description: VPC
     Type: AWS::EC2::VPC::Id

@@ -75,7 +75,7 @@ Parameters:
   EmployeeServiceDockerImage:
     Description: Employee Service Docker Image
     Type: String
-    Default: namila/ccloud-employee-service
+    Default: namila/ccloud-employee-service:latest
   EmployeeServiceReplication:
     Description: Desired count for employee service
     Type: Number
@@ -95,7 +95,7 @@ Parameters:
   ProductsServiceDockerImage:
     Description: Product Service Docker Image
     Type: String
-    Default: namila/ccloud-products-service
+    Default: namila/ccloud-products-service:latest
   ProductsServiceReplication:
     Description: Desired count for products service
     Type: Number
@@ -167,20 +167,20 @@ Resources:
         SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudLoadBalancerSecurityGroup
 
 # Employee Service
-  # EmployeeService:
-  #   Type: AWS::CloudFormation::Stack
-  #   Properties:
-  #     TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/employee_service/employee-service.yml
-  #     Parameters:
-  #       DockerImage: !Ref EmployeeServiceDockerImage
-  #       VPC: !GetAtt CCloudNetwork.Outputs.VPC
-  #       Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
-  #       Replication: !Ref EmployeeServiceReplication
-  #       LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
-  #       ServicePath: !Ref EmployeeServicePath
-  #       HealthCheckPath: !Ref EmployeeServiceHealthCheckPath
-  #       ContainerPort: 3000
-  #       ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
+  EmployeeService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/employee_service/employee-service.yml
+      Parameters:
+        DockerImage: !Ref EmployeeServiceDockerImage
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
+        Replication: !Ref EmployeeServiceReplication
+        LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener
+        ServicePath: !Ref EmployeeServicePath
+        HealthCheckPath: !Ref EmployeeServiceHealthCheckPath
+        ContainerPort: 3000
+        ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
         
   
   ProductsService:
