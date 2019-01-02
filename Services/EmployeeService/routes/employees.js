@@ -40,4 +40,13 @@ router.post('/', function(req, res, next){
   });
 });
 
+router.post('/load',function(req, res, next){
+  for(var i=0; i< 1000; ++i){
+    var a = 1+2; 
+  }
+
+  res.send({status: 'done'});
+
+});
+
 module.exports = router;

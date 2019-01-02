@@ -83,7 +83,7 @@ Parameters:
   EmployeeServicePath:
     Description: Uri of Employee Service
     Type: String
-    Default: /employees
+    Default: /employees/*
   
   EmployeeServiceHealthCheckPath:
     Description: service health check path

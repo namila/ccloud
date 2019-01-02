@@ -53,7 +53,7 @@
   },
   {
     "ParameterKey": "EmployeeServicePath",
-    "ParameterValue": "/employees"
+    "ParameterValue": "/employees/*"
   },
   {
     "ParameterKey": "EmployeeServiceHealthCheckPath",
