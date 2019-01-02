@@ -15,7 +15,22 @@ router.get('/', function(req, res, next) {
       res.send({status: 'Failed'});
     }
     else{
-      res.send(data);
+      
+      var employees = [];
+
+      for (var i = 0; i < data.Items.length; ++i ){
+
+          var dataObject = data.Items[i];
+          var employee = {
+            id: dataObject.EmployeeId.S, 
+            name: dataObject.EmployeeName.S,
+            address:dataObject.EmployeeAddress.S
+          };
+
+          employees.push(employee); 
+          
+      }
+      res.send(employees);
     }
   });
 });
