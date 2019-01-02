@@ -257,7 +257,7 @@ Resources:
     Properties:
       AlarmName: Memory Utilization more than 30 percent
       Namespace: AWS/ECS
-      MetricName: MemoryUtilization
+      MetricName: CPUUtilization
       Dimensions:
         - Name: AutoScalingGroupName
           Value: !Ref CCloudAutoScallingGroup
