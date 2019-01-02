@@ -247,7 +247,6 @@ Resources:
   CCloudVMScaleUpPolicy:
     Type: AWS::AutoScaling::ScalingPolicy
     Properties:
-      PolicyName: CCloudVMScaleUpPolicy
       AdjustmentType: ChangeInCapacity
       Cooldown: 120
       ScalingAdjustment: 1
