@@ -120,7 +120,7 @@ Resources:
         - Name: ccloud-employee-app
           Essential: true
           Image: !Ref DockerImage
-          MemoryReservation: 256
+          MemoryReservation: 128
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           LogConfiguration:
