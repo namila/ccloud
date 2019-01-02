@@ -9,8 +9,8 @@ Resources:
         - AttributeName: EmployeeId
           KeyType: HASH
       ProvisionedThroughput:
-        ReadCapacityUnits: 5
-        WriteCapacityUnits: 5
+        ReadCapacityUnits: 100
+        WriteCapacityUnits: 100
       TableName: EmployeeTable
       StreamSpecification:
         StreamViewType: NEW_IMAGE
