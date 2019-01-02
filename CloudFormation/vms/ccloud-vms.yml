@@ -264,7 +264,7 @@ Resources:
       Statistic: Maximum
       Period: 60
       EvaluationPeriods: 2
-      Threshold: 50
+      Threshold: 30
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudVMScaleUpPolicy 
