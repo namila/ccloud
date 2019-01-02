@@ -277,7 +277,7 @@ Resources:
       AlarmActions:
         - !Ref CCloudVMScaleOutPolicy 
 
-    CCloudVMCPUScaleInAlarm:
+  CCloudVMCPUScaleInAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
         AlarmName: CPU utilization less than 30 present
