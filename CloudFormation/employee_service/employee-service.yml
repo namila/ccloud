@@ -200,7 +200,7 @@ Resources:
       Statistic: Maximum
       Period: 60
       EvaluationPeriods: 2
-      Threshold: 30
+      Threshold: 60
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudEmployeeServiceScaleOutPolicy
