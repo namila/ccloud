@@ -255,7 +255,7 @@ Resources:
   CCloudVMMemoryScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: Memory Utilization more than 60 percent
+      AlarmName: Memory Utilization more than 50 percent
       Namespace: AWS/ECS
       MetricName: MemoryUtilization
       Dimensions:
@@ -264,7 +264,7 @@ Resources:
       Statistic: Maximum
       Period: 60
       EvaluationPeriods: 2
-      Threshold: 30
+      Threshold: 70
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudVMScaleUpPolicy 

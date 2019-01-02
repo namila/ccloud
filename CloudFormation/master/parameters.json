@@ -21,7 +21,7 @@
   },
   {
     "ParameterKey": "VmType",
-    "ParameterValue": "t2.micro"
+    "ParameterValue": "t2.nano"
   },
   {
     "ParameterKey": "MinimumNumberOfVms",
