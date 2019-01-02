@@ -263,7 +263,7 @@ Resources:
   CCloudVMCPUScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: CPU Utilization more than 30 percent
+      AlarmName: CPU Utilization more than 10 percent
       Namespace: AWS/EC2
       MetricName: CPUUtilization
       Dimensions:
