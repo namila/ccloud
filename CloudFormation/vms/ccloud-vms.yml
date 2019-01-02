@@ -23,7 +23,7 @@ Parameters:
   AutoScalingCoolDown:
     Description: Number of seconds to cool down after auto scaling activity
     Type: Number
-    Default: 120
+    Default: 30
   
   HealthCheckGracePeriod:
     Description: Number of seconds wait before starting heartbeat test

@@ -165,7 +165,7 @@ Resources:
       ScalingTargetId: !Ref CCloudEmployeeServiceScalableTarget
       StepScalingPolicyConfiguration:
         AdjustmentType: ChangeInCapacity
-        Cooldown: 120
+        Cooldown: 30
         MetricAggregationType: Average
         StepAdjustments:
           - MetricIntervalLowerBound: 0
@@ -180,7 +180,7 @@ Resources:
       ScalingTargetId: !Ref CCloudEmployeeServiceScalableTarget
       StepScalingPolicyConfiguration:
         AdjustmentType: ChangeInCapacity
-        Cooldown: 120
+        Cooldown: 30
         MetricAggregationType: Average
         StepAdjustments:
           - MetricIntervalUpperBound: 0
