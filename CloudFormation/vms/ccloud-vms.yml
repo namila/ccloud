@@ -244,18 +244,26 @@ Resources:
                 - ecs:UpdateService
               Resource: "*"
 
-  CCloudVMScaleUpPolicy:
+  CCloudVMScaleOutPolicy:
     Type: AWS::AutoScaling::ScalingPolicy
     Properties:
       AdjustmentType: ChangeInCapacity
-      Cooldown: 120
+      Cooldown: 60
       ScalingAdjustment: 1
       AutoScalingGroupName: !Ref CCloudAutoScallingGroup
 
-  CCloudVMMemoryScaleOutAlarm:
+  CCloudVMScaleInPolicy:
+    Type: AWS::AutoScaling::ScalingPolicy
+    Properties:
+      AdjustmentType: ChangeInCapacity
+      Cooldown: 60
+      ScalingAdjustment: -1
+      AutoScalingGroupName: !Ref CCloudAutoScallingGroup 
+
+  CCloudVMCPUScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: Memory Utilization more than 30 percent
+      AlarmName: CPU Utilization more than 30 percent
       Namespace: AWS/EC2
       MetricName: CPUUtilization
       Dimensions:
@@ -267,7 +275,28 @@ Resources:
       Threshold: 10
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
-        - !Ref CCloudVMScaleUpPolicy 
+        - !Ref CCloudVMScaleOutPolicy 
+
+    CCloudVMCPUScaleInAlarm:
+      Type: AWS::CloudWatch::Alarm
+      Properties:
+        AlarmName: CPU utilization less than 30 present
+        Namespace: AWS/EC2
+        MetricName: CPUUtilization
+        Dimensions:
+          - Name: AutoScalingGroupName
+            Value: !Ref CCloudAutoScallingGroup
+        Statistic: Maximum
+        Period: 60
+        EvaluationPeriods: 1
+        Threshold: 10
+        ComparisonOperator: LessThanThreshold
+        AlarmActions:
+          - !Ref CCloudVMScaleInPolicy 
+
+
+
+  
   
   
 
