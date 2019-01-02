@@ -49,6 +49,10 @@ Outputs:
     Description: CCloud Load Balancer
     Value: !Ref CCloudLoadBalancer
   
+  CCloudLoadBalancerUrl:
+    Description: CCloud Load Balancer url
+    Value: !GetAtt CCloudLoadBalancer.DNSName
+
   LoadBalancerListener:
     Description: HTTP listener of the load balancer
     Value: !Ref LoadBalancerListener
