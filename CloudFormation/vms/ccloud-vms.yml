@@ -263,7 +263,7 @@ Resources:
   CCloudVMCPUScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: CPU Utilization more than 10 percent
+      AlarmName: CPU Utilization more than 20 percent
       Namespace: AWS/EC2
       MetricName: CPUUtilization
       Dimensions:
@@ -272,7 +272,7 @@ Resources:
       Statistic: Maximum
       Period: 60
       EvaluationPeriods: 1
-      Threshold: 10
+      Threshold: 20
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudVMScaleOutPolicy 
@@ -280,7 +280,7 @@ Resources:
   CCloudVMCPUScaleInAlarm:
       Type: AWS::CloudWatch::Alarm
       Properties:
-        AlarmName: CPU utilization less than 30 present
+        AlarmName: CPU utilization less than 20 present
         Namespace: AWS/EC2
         MetricName: CPUUtilization
         Dimensions:
@@ -289,7 +289,7 @@ Resources:
         Statistic: Maximum
         Period: 60
         EvaluationPeriods: 1
-        Threshold: 10
+        Threshold: 20
         ComparisonOperator: LessThanThreshold
         AlarmActions:
           - !Ref CCloudVMScaleInPolicy 
