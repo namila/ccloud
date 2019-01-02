@@ -256,7 +256,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: Memory Utilization more than 30 percent
-      Namespace: AWS/ECS
+      Namespace: AWS/EC2
       MetricName: CPUUtilization
       Dimensions:
         - Name: AutoScalingGroupName
