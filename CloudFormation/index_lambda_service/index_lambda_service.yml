@@ -60,7 +60,7 @@ Resources:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: ccloudIndexer
-      Runtime: nodejs6.10
+      Runtime: nodejs8.10
       Code:
         S3Bucket: ccloud-lambda-source
         S3Key: source.zip
