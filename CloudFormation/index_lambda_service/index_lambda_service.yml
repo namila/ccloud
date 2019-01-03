@@ -59,7 +59,7 @@ Resources:
       Runtime: nodejs
       Code:
         S3Bucket: ccloud-lambda-source
-        S3Key: lambda_source.js
+        S3Key: source.zip
       Handler: handler
       Role: !GetAtt RoleForLambda.Arn
       VpcConfig:
