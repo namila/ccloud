@@ -212,14 +212,14 @@ Resources:
         SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
   
   # Lambda funtion to index records
-  IndexLambdaService:
-    Type: AWS::CloudFormation::Stack
-    Properties:
-      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/index_lambda_service/index_lambda_service.yml
-      Parameters:
-        ElasticSearchSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
-        ElasticSearchSecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
-        TableStreamARN: DynamoDbService.Outputs.ProductTableStreamARN
+  # IndexLambdaService:
+  #   Type: AWS::CloudFormation::Stack
+  #   Properties:
+  #     TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/index_lambda_service/index_lambda_service.yml
+  #     Parameters:
+  #       ElasticSearchSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
+  #       ElasticSearchSecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
+  #       TableStreamARN: DynamoDbService.Outputs.ProductTableStreamARN
 
 
 Outputs:
