@@ -1,6 +1,6 @@
 Parameters:
-  VPCEndpointSubnet:
-    Description: Subnet to place VPC endpoint
+  ElasticSearchSubnet:
+    Description: Subnet of the elasticsearch service
     Type: String
 
   SecurityGroup:
@@ -14,3 +14,12 @@ Resources:
     Properties:
       FunctionName: ccloudIndexer
       Runtime: nodejs
+      Code: ''
+      Handler: ''
+      Role: ''
+      VpcConfig:
+        SecurityGroupIds:
+          - !Ref 
+        SubnetId:
+          -
+
