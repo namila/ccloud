@@ -46,11 +46,11 @@ Resources:
                   - dynamodb:GetRecords
                   - dynamodb:GetShardIterator
                   - dynamodb:ListStreams
-                Resource: *
+                Resource: "*"
               
               - Effect: Allow
                 Action: es:*
-                Resource: *
+                Resource: "*"
 
   CCloudIndexer:
     Type: AWS::Lambda::Function
