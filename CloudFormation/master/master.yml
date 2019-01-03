@@ -202,7 +202,7 @@ Resources:
     Properties:
       TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/dynamoDb_service/dynamoDb_service.yml
 
-  #Elasticsearch indexing service
+  # Elasticsearch indexing service
   ElasticsearchService:
     Type: AWS::CloudFormation::Stack
     Properties:
@@ -210,6 +210,17 @@ Resources:
       Parameters:
         VPCEndpointSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
         SecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
+  
+  # Lambda funtion to index records
+  IndexLambdaService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/index_lambda_service/index_lambda_service.yml
+      Parameters:
+        ElasticSearchSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
+        ElasticSearchSecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
+        TableStreamARN: DynamoDbService.Outputs.ProductTableStreamARN
+
 
 Outputs:
   EmployeeServiceUrl:

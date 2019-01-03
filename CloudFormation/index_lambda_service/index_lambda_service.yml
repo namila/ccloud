@@ -3,23 +3,80 @@ Parameters:
     Description: Subnet of the elasticsearch service
     Type: String
 
-  SecurityGroup:
+  ElasticSearchSecurityGroup:
     Description: Security group for elasticsearch service
+    Type: String
+
+  TableStreamARN:
+    Description: ARN of the table stream
     Type: String
 
 
 Resources:
+
+  RoleForLambda:
+    Type: Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Path: /
+      Policies:
+        - PolicyName: RoleForLambdaPolicy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                Resource: arn:aws:logs:*:*:*
+
+              - Effect: Allow
+                Action:
+                  - dynamodb:DescribeStream
+                  - dynamodb:GetRecords
+                  - dynamodb:GetShardIterator
+                  - dynamodb:ListStreams
+                Resource: *
+              
+              - Effect: Allow
+                Action: es:*
+                Resource: *
+
   CCloudIndexer:
     Type: AWS::Lambda::Function
     Properties:
       FunctionName: ccloudIndexer
       Runtime: nodejs
-      Code: ''
-      Handler: ''
-      Role: ''
+      Code:
+        S3Bucket: ccloud-template-bucket
+        S3Key: index_lambda_service/lambda_source.js
+      Handler: handler
+      Role: !Ref RoleForLambda
       VpcConfig:
         SecurityGroupIds:
-          - !Ref 
-        SubnetId:
-          -
+          - !Ref ElasticSearchSecurityGroup
+        SubnetIds:
+          - !Ref ElasticSearchSubnet
+
+  DbTableAndLambdaMapper:
+    Type: AWS::Lambda::EventSourceMapping
+    Properties:
+      BatchSize: 1
+      Enabled: True
+      EventSourceArn: !Ref TableStreamARN
+      FunctionName: !Get CCloudIndexer.Arn
+      StartingPosition: LATEST
+
+
+  
 
