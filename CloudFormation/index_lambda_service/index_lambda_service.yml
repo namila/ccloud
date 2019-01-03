@@ -74,7 +74,7 @@ Resources:
       BatchSize: 1
       Enabled: True
       EventSourceArn: !Ref TableStreamARN
-      FunctionName: !Get CCloudIndexer.Arn
+      FunctionName: !GetAtt CCloudIndexer.Arn
       StartingPosition: LATEST
 
 
