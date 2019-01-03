@@ -51,6 +51,10 @@ Resources:
               - Effect: Allow
                 Action: es:*
                 Resource: "*"
+                       
+              - Effect: Allow
+                Action: ec2:*
+                Resource: "*"
 
   CCloudIndexer:
     Type: AWS::Lambda::Function
