@@ -219,7 +219,7 @@ Resources:
       Parameters:
         ElasticSearchSubnet: !Select [0,!Split [',',!GetAtt CCloudNetwork.Outputs.PrivateSubnets ]]
         ElasticSearchSecurityGroup: !GetAtt CCloudSecurityGroups.Outputs.CCloudElasticSearchServiceSecurityGroup
-        TableStreamARN: DynamoDbService.Outputs.ProductTableStreamARN
+        TableStreamARN: !GetAtt DynamoDbService.Outputs.ProductTableStreamARN
 
 
 Outputs:
