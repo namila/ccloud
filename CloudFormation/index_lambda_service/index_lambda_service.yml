@@ -58,8 +58,8 @@ Resources:
       FunctionName: ccloudIndexer
       Runtime: nodejs
       Code:
-        S3Bucket: ccloud-template-bucket
-        S3Key: index_lambda_service/lambda_source.js
+        S3Bucket: ccloud-lambda-source
+        S3Key: lambda_source.js
       Handler: handler
       Role: !GetAtt RoleForLambda.Arn
       VpcConfig:
