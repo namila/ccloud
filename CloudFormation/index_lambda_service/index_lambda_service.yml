@@ -61,7 +61,7 @@ Resources:
         S3Bucket: ccloud-template-bucket
         S3Key: index_lambda_service/lambda_source.js
       Handler: handler
-      Role: !Ref RoleForLambda
+      Role: !GetAtt RoleForLambda.Arn
       VpcConfig:
         SecurityGroupIds:
           - !Ref ElasticSearchSecurityGroup
