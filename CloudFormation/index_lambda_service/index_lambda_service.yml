@@ -72,7 +72,7 @@ Resources:
       Handler: lambda_source.handler
       Role: !GetAtt RoleForLambda.Arn
       Environment:
-        - ElasticSearchDomain: !Ref ElasticSearchDomain
+        ElasticSearchDomain: !Ref ElasticSearchDomain
       VpcConfig:
         SecurityGroupIds:
           - !Ref ElasticSearchSecurityGroup
