@@ -1,4 +1,4 @@
-FROM node
+FROM node:8-alpine
 RUN mkdir ProductsServiceSource
 COPY Services/ProductsService ProductsServiceSource/
 WORKDIR ProductsServiceSource

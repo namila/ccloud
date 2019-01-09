@@ -11,6 +11,10 @@ Parameters:
     Description: ARN of the table stream
     Type: String
 
+  ElasticSearchDomain:
+    Description: Address of the elastisearch Cluster
+    Type: String
+
 
 Resources:
 
@@ -67,6 +71,8 @@ Resources:
         S3ObjectVersion: 4DMoZTXkgCAWOS6MgbUxDuE7lmvsNjhG
       Handler: lambda_source.handler
       Role: !GetAtt RoleForLambda.Arn
+      Environment:
+        - ElasticSearchDomain: !Ref ElasticSearchDomain
       VpcConfig:
         SecurityGroupIds:
           - !Ref ElasticSearchSecurityGroup
