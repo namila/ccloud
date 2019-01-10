@@ -69,7 +69,7 @@
   },
   {
     "ParameterKey": "ProductsServicePath",
-    "ParameterValue": "/products"
+    "ParameterValue": "/products/*"
   },
   {
     "ParameterKey": "ProductsServiceHealthCheckPath",

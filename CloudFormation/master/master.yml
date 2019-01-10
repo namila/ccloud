@@ -104,7 +104,7 @@ Parameters:
   ProductsServicePath:
     Description: Uri for Products Service
     Type: String
-    Default: /products
+    Default: /products/*
 
   ProductsServiceHealthCheckPath:
     Description: service health check path
