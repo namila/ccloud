@@ -83,7 +83,7 @@ Resources:
   DbTableAndLambdaMapper:
     Type: AWS::Lambda::EventSourceMapping
     Properties:
-      BatchSize: 1
+      BatchSize: 100
       Enabled: True
       EventSourceArn: !Ref TableStreamARN
       FunctionName: !GetAtt CCloudIndexer.Arn
