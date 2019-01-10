@@ -111,7 +111,8 @@ Resources:
           Image: !Ref DockerImage
           Memory: 128
           Environment:
-            - ElasticSearchDomain: !Ref ElasticSearchDomain
+            - Name: ElasticSearchDomain
+              Value: !Ref ElasticSearchDomain
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           LogConfiguration:
