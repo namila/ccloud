@@ -59,19 +59,27 @@ router.get('/search', function(req, res, next){
 
   elasticsearchService.search({
     index: 'ccloud',
-    type: 'product',
     body:{
       query:{
-        match: {
-          body: req.query.key
+        multi_match:{
+          query: req.query.key,
+          fields:['ProductId', 'ProductName', 'ProductDescription']
         }
       }
     }
+
   }).then(function(response){
     res.send({data: response.hits.hits});
   },function(error){
-    res.send({data: 'Error'});
+    res.send({data: error});
   });
+
+  // elasticsearchService.count({
+  //   index: 'users_development_20190103114011498'}).then(function(response){
+  //   res.send({data: response});
+  // },function(error){
+  //   res.send({data: error});
+  // });
 });
 
 module.exports = router;
