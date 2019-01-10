@@ -36,6 +36,10 @@ Parameters:
     Description: port exposed by the container
     Type: Number
     Default: 3000
+  
+  ElasticSearchDomain:
+    Description: Elasticsearch domain
+    Type: String
 
 Resources:
 
@@ -106,6 +110,8 @@ Resources:
           Essential: true
           Image: !Ref DockerImage
           Memory: 128
+          Environment:
+            - ElasticSearchDomain: !Ref ElasticSearchDomain
           PortMappings:
             - ContainerPort: !Ref ContainerPort
           LogConfiguration:

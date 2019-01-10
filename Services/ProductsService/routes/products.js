@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var uuid = require('uuid');
 var dynamoDbService = require('../db/dynamoDB');
+var elasticsearchService = require('../db/elasticsearch');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -52,6 +53,25 @@ router.post('/', function(req, res, next){
   });
 
 
+});
+
+router.get('/search', function(req, res, next){
+
+  elasticsearchService.search({
+    index: 'ccloud',
+    type: 'product',
+    body:{
+      query:{
+        match: {
+          body: req.query.key
+        }
+      }
+    }
+  }).then(function(response){
+    res.send({data: response.hits.hits});
+  },function(error){
+    res.send({data: 'Error'});
+  });
 });
 
 module.exports = router;
