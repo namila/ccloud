@@ -12,9 +12,10 @@ exports.handler = async (event, context) => {
     var newImage = record.dynamodb.NewImage;
 
     if(record.eventName == "INSERT"){
+      console.log(newImage);
       var indexer = await elasticsearchClient.create({
-        index: 'CCloud',
-        type:'Product',
+        index: 'ccloud',
+        type:'product',
         id: newImage.ProductId.S,
         body: {
           ProductId: newImage.ProductId.S,
