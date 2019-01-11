@@ -18,6 +18,11 @@ Parameters:
     Type: Number
     Default: 2
 
+  MaxReplication:
+    Description: Maximum replication
+    Type: Number
+    Default: 10
+
   LoadBalancerListener:
     Description: Load balancer listener
     Type: String
@@ -36,6 +41,10 @@ Parameters:
     Description: port exposed by the container
     Type: Number
     Default: 3000
+
+  ServiceAutoScalingRoleARN:
+    Description: Service autoscalling roll ARN
+    Type: String
   
   ElasticSearchDomain:
     Description: Elasticsearch domain
@@ -134,5 +143,88 @@ Resources:
         - ContainerName: ccloud-products-app
           ContainerPort: !Ref ContainerPort
           TargetGroupArn: !Ref LoadBalancerTargetGroup
+
+
+  CCloudProductServiceScalableTarget:
+    Type: AWS::ApplicationAutoScaling::ScalableTarget
+    Properties:
+      MaxCapacity: !Ref MaxReplication
+      MinCapacity: !Ref Replication
+      ResourceId: !Join
+        - /
+        - - service
+          - !Ref Cluster
+          - !GetAtt CCloudProductsService.Name
+      RoleARN: !Ref ServiceAutoScalingRoleARN
+      ScalableDimension: ecs:service:DesiredCount
+      ServiceNamespace: ecs
+
+  CCloudProductServiceScaleOutPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CCloudProductServiceScaleOutPolicy
+      PolicyType: StepScaling
+      ScalingTargetId: !Ref CCloudProductServiceScalableTarget
+      StepScalingPolicyConfiguration:
+        AdjustmentType: ChangeInCapacity
+        Cooldown: 30
+        MetricAggregationType: Average
+        StepAdjustments:
+          - MetricIntervalLowerBound: 0
+            ScalingAdjustment: 1
+
+  CCloudProductServiceMemoryScaleOutAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Memory Utilization more than 60 percentage
+      Namespace: AWS/ECS
+      MetricName: MemoryUtilization
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref Cluster
+        - Name: ServiceName
+          Value: !GetAtt CCloudProductsService.Name
+      Statistic: Maximum
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: 60
+      ComparisonOperator: GreaterThanThreshold
+      AlarmActions:
+        - !Ref CCloudProductServiceScaleOutPolicy
+
+
+  CCloudProductServiceScaleInPolicy:
+    Type: AWS::ApplicationAutoScaling::ScalingPolicy
+    Properties:
+      PolicyName: CCloudProductServiceScaleInPolicy
+      PolicyType: StepScaling
+      ScalingTargetId: !Ref CCloudProductServiceScalableTarget
+      StepScalingPolicyConfiguration:
+        AdjustmentType: ChangeInCapacity
+        Cooldown: 30
+        MetricAggregationType: Average
+        StepAdjustments:
+          - MetricIntervalUpperBound: 0
+            ScalingAdjustment: -1
+
+  CCloudProductsServiceMemoryScaleInAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: Memory Utilization less than 60 percentage
+      Namespace: AWS/ECS
+      MetricName: MemoryUtilization
+      Dimensions:
+        - Name: ClusterName
+          Value: !Ref Cluster
+        - Name: ServiceName
+          Value: !GetAtt CCloudProductsService.Name
+      Statistic: Maximum
+      Period: 60
+      EvaluationPeriods: 2
+      Threshold: 60
+      ComparisonOperator: LessThanThreshold
+      AlarmActions:
+        - !Ref CCloudProductServiceScaleInPolicy
+
 
 

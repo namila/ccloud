@@ -222,6 +222,7 @@ Resources:
         LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener 
         ServicePath: !Ref ProductsServicePath
         HealthCheckPath: !Ref ProductsServiceHealthCheckPath
+        ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
         ElasticSearchDomain: !GetAtt ElasticsearchService.Outputs.ElasticsearchServiceEndPoint
 
 
