@@ -87,7 +87,7 @@ Resources:
       Enabled: True
       EventSourceArn: !Ref TableStreamARN
       FunctionName: !GetAtt CCloudIndexer.Arn
-      StartingPosition: LATEST
+      StartingPosition: TRIM_HORIZON
 
 
   
