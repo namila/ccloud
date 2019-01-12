@@ -176,7 +176,7 @@ Resources:
   CCloudProductServiceMemoryScaleOutAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: Memory Utilization more than 60 percentage products service
+      AlarmName: Memory Utilization more than 50 percentage products service
       Namespace: AWS/ECS
       MetricName: MemoryUtilization
       Dimensions:
@@ -210,7 +210,7 @@ Resources:
   CCloudProductsServiceMemoryScaleInAlarm:
     Type: AWS::CloudWatch::Alarm
     Properties:
-      AlarmName: Memory Utilization less than 60 percentage products service
+      AlarmName: Memory Utilization less than 50 percentage products service
       Namespace: AWS/ECS
       MetricName: MemoryUtilization
       Dimensions:
