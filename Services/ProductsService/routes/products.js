@@ -35,12 +35,15 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next){
+  var currentTimestamp = new Date().toISOString();
+  
   var productObject = {
     TableName: "ProductTable",
     Item:{
       "ProductId": { S: uuid.v1() },
       "ProductName": { S: req.body.productName },
-      "ProductDescription": { S: req.body.productDescription }
+      "ProductDescription": { S: req.body.productDescription },
+      "Timestamp": { S: currentTimestamp }
     }
   }
 

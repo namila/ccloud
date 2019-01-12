@@ -24,10 +24,14 @@ Resources:
     Properties:
       AttributeDefinitions:
         - AttributeName: ProductId
+          AttributeType: S
+        - AttributeName: Timestamp
           AttributeType: S    
       KeySchema:
         - AttributeName: ProductId
           KeyType: HASH
+        - AttributeName: Timestamp
+          KeyType: Range 
       ProvisionedThroughput:
         ReadCapacityUnits: 100
         WriteCapacityUnits: 100
