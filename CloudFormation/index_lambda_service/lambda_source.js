@@ -20,7 +20,7 @@ exports.handler = async (event, context) => {
         body: {
           ProductId: newImage.ProductId.S,
           ProductName: newImage.ProductName.S,
-          ProductDescription: newImage.ProductDescription.S
+          ProductDescription: newImage.ProductDescription.S,
           ProductTimestamp: newImage.Timestamp.S
         }
       });
