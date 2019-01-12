@@ -31,7 +31,7 @@ Resources:
         - AttributeName: ProductId
           KeyType: HASH
         - AttributeName: Timestamp
-          KeyType: Range 
+          KeyType: RANGE 
       ProvisionedThroughput:
         ReadCapacityUnits: 100
         WriteCapacityUnits: 100
