@@ -210,20 +210,20 @@ Resources:
         TableStreamARN: !GetAtt DynamoDbService.Outputs.ProductTableStreamARN
         ElasticSearchDomain: !GetAtt ElasticsearchService.Outputs.ElasticsearchServiceEndPoint
 
-  # ProductsService:
-  #   Type: AWS::CloudFormation::Stack
-  #   Properties:
-  #     TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/products_service/products-service.yml
-  #     Parameters:
-  #       DockerImage: !Ref ProductsServiceDockerImage
-  #       VPC: !GetAtt CCloudNetwork.Outputs.VPC
-  #       Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
-  #       Replication: !Ref ProductsServiceReplication
-  #       LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener 
-  #       ServicePath: !Ref ProductsServicePath
-  #       HealthCheckPath: !Ref ProductsServiceHealthCheckPath
-  #       ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
-  #       ElasticSearchDomain: !GetAtt ElasticsearchService.Outputs.ElasticsearchServiceEndPoint
+  ProductsService:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://s3.amazonaws.com/ccloud-template-bucket/products_service/products-service.yml
+      Parameters:
+        DockerImage: !Ref ProductsServiceDockerImage
+        VPC: !GetAtt CCloudNetwork.Outputs.VPC
+        Cluster: !GetAtt CCloudCluster.Outputs.CCloudCluster
+        Replication: !Ref ProductsServiceReplication
+        LoadBalancerListener: !GetAtt CCloudLoadBalancer.Outputs.LoadBalancerListener 
+        ServicePath: !Ref ProductsServicePath
+        HealthCheckPath: !Ref ProductsServiceHealthCheckPath
+        ServiceAutoScalingRoleARN: !GetAtt CCloudCluster.Outputs.ECSServiceAutoScalingRole
+        ElasticSearchDomain: !GetAtt ElasticsearchService.Outputs.ElasticsearchServiceEndPoint
 
 
 Outputs:
