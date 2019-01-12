@@ -198,9 +198,9 @@ Resources:
         - Name: ServiceName
           Value: !GetAtt CCloudEmployeeService.Name
       Statistic: Maximum
-      Period: 60
+      Period: 30
       EvaluationPeriods: 2
-      Threshold: 60
+      Threshold: 50
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
         - !Ref CCloudEmployeeServiceScaleOutPolicy
@@ -217,9 +217,9 @@ Resources:
         - Name: ServiceName
           Value: !GetAtt CCloudEmployeeService.Name
       Statistic: Maximum
-      Period: 60
+      Period: 30
       EvaluationPeriods: 2
-      Threshold: 60
+      Threshold: 50
       ComparisonOperator: LessThanThreshold
       AlarmActions:
         - !Ref CCloudEmployeeServiceScaleInPolicy
