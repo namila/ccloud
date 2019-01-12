@@ -68,7 +68,7 @@ Resources:
       Code:
         S3Bucket: ccloud-lambda-source
         S3Key: source.zip
-        S3ObjectVersion: ZC47YLnodbPgbmwo_xkL7STZw1QexuB4
+        S3ObjectVersion: PSZsSEdqxs5HUEypB8OgurvdVaQvQ7aZ
       Handler: lambda_source.handler
       Role: !GetAtt RoleForLambda.Arn
       Environment:
