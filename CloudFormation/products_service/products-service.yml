@@ -185,8 +185,8 @@ Resources:
         - Name: ServiceName
           Value: !GetAtt CCloudProductsService.Name
       Statistic: Maximum
-      Period: 30
-      EvaluationPeriods: 2
+      Period: 60
+      EvaluationPeriods: 1
       Threshold: 50
       ComparisonOperator: GreaterThanThreshold
       AlarmActions:
@@ -219,8 +219,8 @@ Resources:
         - Name: ServiceName
           Value: !GetAtt CCloudProductsService.Name
       Statistic: Maximum
-      Period: 30
-      EvaluationPeriods: 2
+      Period: 60
+      EvaluationPeriods: 1
       Threshold: 50
       ComparisonOperator: LessThanThreshold
       AlarmActions:
